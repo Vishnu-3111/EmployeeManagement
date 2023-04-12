@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Employee.Data.Handlers
 {
-    public class GetAllemployeehandlers : IRequestHandler<getemployeequery, List<Employees>>
+    public class GetAllemployeehandlers : IRequestHandler<Getemployeequery, List<Employees>>
     {
         private readonly IDataccess _dataccess;
         public GetAllemployeehandlers(IDataccess dataAccess)
@@ -12,12 +12,12 @@ namespace Employee.Data.Handlers
             _dataccess = dataAccess;
         }
 
-        
 
-        public Task<List<Employees>> Handle(getemployeequery request, CancellationToken cancellationToken)
+
+        public Task<List<Employees>> Handle(Getemployeequery request, CancellationToken cancellationToken)
         {
-            _dataccess.getemployee().ToList();
-            return Task.FromResult(_dataccess.getemployee());
+            _dataccess.Getemployee().ToList();
+            return Task.FromResult(_dataccess.Getemployee());
 
         }
     }

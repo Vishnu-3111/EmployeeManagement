@@ -10,14 +10,14 @@ namespace Employee.Data.Handlers
         {
             this.dataccess = dataccess;
         }
-        public async Task<int> Handle(DeleteemployeequeryId request, CancellationToken cancellationToken)
+        public Task<int> Handle(DeleteemployeequeryId request, CancellationToken cancellationToken)
         {
-            var employeedetails = dataccess.getemployeebyid(request.EmpId);
-            if (employeedetails == null) return default;
-           
-                return dataccess.Deleteemployeebyid(request.EmpId);
-            
-           
+            var employeedetail = dataccess.Getemployeebyid(request.EmployeeId);
+            if (employeedetail == null) return Task.FromResult<int>(default);
+
+            return Task.FromResult(dataccess.Deleteemployeebyid(request.EmployeeId));
+
+
         }
     }
 }

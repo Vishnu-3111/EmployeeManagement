@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Employee.Data.Handlers
 {
-    public class updateemployeeHaldlers: IRequestHandler<updateemployeequery, Employees>
-    { 
+    public class updateemployeeHaldlers : IRequestHandler<updateemployeequery, Employees>
+    {
         public readonly IDataccess _dataccess;
         public updateemployeeHaldlers(IDataccess dataccess)
         {
@@ -14,8 +14,8 @@ namespace Employee.Data.Handlers
         }
         public Task<Employees> Handle(updateemployeequery request, CancellationToken cancellationToken)
         {
-           
-           
+
+
             return Task.FromResult(_dataccess.Editemployess(request.Employee));
 
         }

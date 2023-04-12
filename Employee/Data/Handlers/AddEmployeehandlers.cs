@@ -5,14 +5,14 @@ using System.Collections.Generic;
 
 namespace Employee.Data.Handlers
 {
-    public class Employeehandlers : IRequestHandler<employeequery, Employees>
+    public class AddEmployeehandlers : IRequestHandler<Addemployeequery, Employees>
     {
         private readonly IDataccess _dataaccess;
-        public Employeehandlers(IDataccess dataaccess)
+        public AddEmployeehandlers(IDataccess dataaccess)
         {
             this._dataaccess = dataaccess;
         }
-        public Task<Employees> Handle(employeequery request, CancellationToken cancellationToken)
+        public Task<Employees> Handle(Addemployeequery request, CancellationToken cancellationToken)
         {
             return Task.FromResult(_dataaccess.Addemployess(request.Employees));
         }

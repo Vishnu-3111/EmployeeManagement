@@ -18,28 +18,34 @@ namespace Employee.Controllers
         }
 
         [HttpPost]
-        public async Task <IActionResult> post([FromBody]Employees employee)
+        public async Task<ResultResponce> Post([FromBody] Employees employee)
         {
-            
-            return Ok (await _mediator.Send(new employeequery(employee)));
-        }
-        [HttpGet]
-        public async Task<List<Employees>>GetallEmployees()
-        {
+            ResultResponce result = new ResultResponce();
 
-           var result =await _mediator.Send(new getemployeequery());
+            await _mediator.Send(new Addemployeequery(employee));
+           
+                result.information = "Employee details added";
+            
+
             return result;
         }
-        [HttpGet("{id}")]
-        
-        public async Task<Employees> GetallEmployeebyid(int id)
+        [HttpGet]
+        public async Task<List<Employees>> GetallEmployees()
         {
 
-            var result = await _mediator.Send(new employeequeryId(id));
+            var result = await _mediator.Send(new Getemployeequery());
+            return result;
+        }
+
+        [HttpGet("{Id}")]
+        public async Task<Employees> GetEmployeebyid(int Id)
+        {
+
+            var result = await _mediator.Send(new GetemployeequeryId(Id));
             return result;
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> updateemployee([FromBody] Employees employee)
+        public async Task<IActionResult> Updateemployee([FromBody] Employees employee)
         {
 
             return Ok(await _mediator.Send(new updateemployeequery(employee)));
@@ -48,7 +54,7 @@ namespace Employee.Controllers
         public async Task<IActionResult> Deleteemployee(int id)
         {
 
-            return Ok(await _mediator.Send(new DeleteemployeequeryId() { EmpId=id}));
+            return Ok(await _mediator.Send(new DeleteemployeequeryId() { EmployeeId = id }));
         }
     }
 }

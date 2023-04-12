@@ -6,8 +6,8 @@ namespace Employee.Data
     {
         public Employees Addemployess(Employees employees);
         public Employees Editemployess(Employees employees);
-        public List<Employees> getemployee();
-        public Employees getemployeebyid(int id);
+        public List<Employees> Getemployee();
+        public Employees Getemployeebyid(int id);
         public int Deleteemployeebyid(int id);
     }
 }
