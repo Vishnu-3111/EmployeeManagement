@@ -10,13 +10,13 @@ namespace Employee.Model
         [Key]
         public int EmpId { get; set; }
         public string Empname { get; set; }
-     
+
         public string Desgnation { get; set; }
         public int Pincode { get; set; }
         public int MangerID { get; set; }
         public int salary { get; set; }
         public string depName { get; set; }
     }
-  
+
 
 }
