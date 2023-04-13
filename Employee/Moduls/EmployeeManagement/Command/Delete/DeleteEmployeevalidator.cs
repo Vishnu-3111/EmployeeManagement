@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace Employee.Moduls.EmployeeManagement.Command.Delete
 {
-    public class Deletevalidator : AbstractValidator<DeleteEmployee>
+    public class DeleteEmployeevalidator : AbstractValidator<DeleteEmployee>
     {
-        public Deletevalidator()
+        public DeleteEmployeevalidator()
         {
             RuleFor(x => x.EmployeeID).NotEmpty().NotNull();
         }

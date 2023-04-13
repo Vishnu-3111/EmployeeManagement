@@ -4,28 +4,29 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Employee.Moduls.Command.Delete
 {
-    public class DeleteEmployee : IRequest<string>
+    public class DeleteEmployee : IRequest<ResultResponce>
     {
         public int EmployeeID { get; set; }
     }
-    public class DeleteEmployeeHandlers : IRequestHandler<DeleteEmployee, string>
+    public class DeleteEmployeeHandlers : IRequestHandler<DeleteEmployee, ResultResponce>
     {
         private readonly EmpDbContext _dbContext;
         public DeleteEmployeeHandlers(EmpDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-        public async Task<string> Handle(DeleteEmployee command, CancellationToken cancellationToken)
+        public async Task<ResultResponce> Handle(DeleteEmployee command, CancellationToken cancellationToken)
         {
-            var employees = await _dbContext.Employees.Where(a => a.EmpId == command.EmployeeID).FirstOrDefaultAsync();
+            var employees = await _dbContext.EmployeeManagement.Where(a => a.EmployeeId == command.EmployeeID).FirstOrDefaultAsync();
 
 
             if (employees != null)
             {
-                _dbContext.Employees.Remove(employees);
-                await _dbContext.SaveChangesAsync();
-                string output = "Record is Deleted";
-                return output;
+                ResultResponce response=new ResultResponce();
+                _dbContext.EmployeeManagement.Remove(employees);
+               response.ResponseValue= await _dbContext.SaveChangesAsync();
+                response.Information = "Record is Deleted";
+                return response;
             }
            else
             {

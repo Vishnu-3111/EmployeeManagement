@@ -1,41 +1,52 @@
 ﻿using Employee.Model;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace Employee.Moduls.EmployeeManagement.Command.Create
-{
-    public class CreateEmployee : IRequest<string>
+{/// <summary>
+/// This Class used Create Or Add new employee
+/// </summary>
+    public class CreateEmployee : IRequest<ResultResponce>
     {
-        public string Empname { get; set; }
-
-        public string Desgnation { get; set; }
+        public string EmployeeName { get; set; }
+        public string Designation { get; set; }
         public int Pincode { get; set; }
-        public int MangerID { get; set; }
-        public int salary { get; set; }
-        public string depName { get; set; }
+        public int ManagerID { get; set; }
+        public int Salary { get; set; }
+        public string DepartmentName { get; set; }
+        public List<Model.Educationalqualification> EducationalQualification { get; set; }
     }
-    public class CreateEmployeeHandler : IRequestHandler<CreateEmployee, string>
+   
+   
+   
+    public class CreateEmployeeHandler : IRequestHandler<CreateEmployee, ResultResponce>
     {
+        
         private readonly EmpDbContext _dbContext;
         public CreateEmployeeHandler(EmpDbContext dbContext)
         {
             _dbContext = dbContext;
+           // this.educationQualificationDb = educationQualificationDb;
         }
 
-        public Task<string> Handle(CreateEmployee request, CancellationToken cancellationToken)
+        public Task<ResultResponce> Handle(CreateEmployee request, CancellationToken cancellationToken)
         {
-
-            var EmployeeDetails = new Employees();
-            EmployeeDetails.Empname = request.Empname;
+            ResultResponce response = new ResultResponce();
+            var EduationQalifications = new Model.Educationalqualification();
+            var EmployeeDetails = new Model.EmployeeManagement();
+            EmployeeDetails.EmployeeName = request.EmployeeName;
             EmployeeDetails.Pincode = request.Pincode;
-            EmployeeDetails.depName = request.depName;
-            EmployeeDetails.salary = request.salary;
-            EmployeeDetails.Desgnation = request.Desgnation;
-            EmployeeDetails.MangerID = request.MangerID;
-            _dbContext.Employees.Add(EmployeeDetails);
-            _dbContext.SaveChanges();
+            EmployeeDetails.DepartmentName = request.DepartmentName;
+            EmployeeDetails.Salary = request.Salary;
+            EmployeeDetails.Designation = request.Designation;
+            EmployeeDetails.ManagerID = request.ManagerID;
+            EmployeeDetails.EducationalQualifications = request.EducationalQualification;
+            _dbContext.EmployeeManagement.Add(EmployeeDetails);
+            response.ResponseValue= _dbContext.SaveChanges();
+            response.Information = "Employee Details Created";
 
-            return Task.FromResult("Employeedetails added");
+            return Task.FromResult(response);
         }
     }
 }

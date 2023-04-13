@@ -4,7 +4,7 @@ namespace Employee.Fluent_Validator
 {
     public class ManagerValidator : PropertyValidator
     {
-        public ManagerValidator() : base("Invalid Manager ID")
+        public ManagerValidator() : base("Invalid ID")
         {
 
         }

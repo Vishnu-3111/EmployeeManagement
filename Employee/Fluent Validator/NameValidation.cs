@@ -12,8 +12,8 @@ namespace Employee.Fluent_Validator
 
         protected override bool IsValid(PropertyValidatorContext context)
         {
-            Regex regex = new Regex(@"^a-zA-z", RegexOptions.IgnoreCase);
-            return regex.IsMatch(context.PropertyName);
+            Regex regex = new Regex(@"^[a-z]+$", RegexOptions.IgnoreCase);
+            return regex.IsMatch(context.PropertyValue.ToString());
         }
     }
 }

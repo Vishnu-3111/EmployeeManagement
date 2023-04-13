@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Employee.Moduls.EmployeeManagement.Command.Update
 {
-    public class UpdateEmployee : IRequest<string>
+    public class UpdateEmployee : IRequest<ResultResponce>
     {
         public int Id { get; set; }
         public string Empname { get; set; }
@@ -15,9 +15,10 @@ namespace Employee.Moduls.EmployeeManagement.Command.Update
         public int MangerID { get; set; }
         public int salary { get; set; }
         public string depName { get; set; }
+        public List<Model.Educationalqualification> EducationalQualification { get; set; }
 
     }
-    public class UpdateEmployeeHandlers : IRequestHandler<UpdateEmployee, string>
+    public class UpdateEmployeeHandlers : IRequestHandler<UpdateEmployee, ResultResponce>
     {
         public readonly EmpDbContext dbContext;
         public UpdateEmployeeHandlers(EmpDbContext _dbContext)
@@ -27,30 +28,32 @@ namespace Employee.Moduls.EmployeeManagement.Command.Update
             dbContext = _dbContext;
         }
 
-        public Task<string> Handle(UpdateEmployee request, CancellationToken cancellationToken)
+        public Task<ResultResponce> Handle(UpdateEmployee request, CancellationToken cancellationToken)
         {
-            var entity=dbContext.Employees.Where(x=>x.EmpId == request.Id);
+            var entity = dbContext.EmployeeManagement.Where(x => x.EmployeeId == request.Id);
 
             if (entity != null)
             {
-
-                var Employeedetails = new Employees();
-                Employeedetails.EmpId = request.Id;
-                Employeedetails.Empname = request.Empname;
+                ResultResponce response = new ResultResponce();
+                var Employeedetails = new Model.EmployeeManagement();
+                Employeedetails.EmployeeId = request.Id;
+                Employeedetails.EmployeeName = request.Empname;
                 Employeedetails.Pincode = request.Pincode;
-                Employeedetails.depName = request.depName;
-                Employeedetails.salary = request.salary;
-                Employeedetails.Desgnation = request.Desgnation;
-                Employeedetails.MangerID = request.MangerID;
+                Employeedetails.DepartmentName = request.depName;
+                Employeedetails.Salary = request.salary;
+                Employeedetails.Designation = request.Desgnation;
+                Employeedetails.ManagerID = request.MangerID;
+                Employeedetails.EducationalQualifications = request.EducationalQualification;
                 dbContext.Update(Employeedetails);
-                dbContext.SaveChanges();
-                return Task.FromResult("Employee details Updated");
+                response.ResponseValue = dbContext.SaveChanges();
+                response.Information = "Employee details Updated";
+                return Task.FromResult(response);
             }
             else
             {
                 throw new Exception();
             }
-            
+
 
 
         }
