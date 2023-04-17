@@ -4,6 +4,9 @@ using MediatR;
 
 namespace Employee.Moduls.EmployeeManagement.Quers
 {
+    /// <summary>
+    /// Get all records from the Employee Management Table
+    /// </summary>
     public class GetEmployee : IRequest<List<Model.EmployeeManagement>>
     {
     }
@@ -14,6 +17,12 @@ namespace Employee.Moduls.EmployeeManagement.Quers
         {
             _dbContext = dbContext;
         }
+        /// <summary>
+        /// This handler used to Fetch all records from the Database
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public Task<List<Model.EmployeeManagement>> Handle(GetEmployee request, CancellationToken cancellationToken)
         {
 
@@ -26,17 +35,17 @@ namespace Employee.Moduls.EmployeeManagement.Quers
                                     EmployeeName = ls.EmployeeName,
                                     Designation = ls.Designation,
                                     DepartmentName = ls.DepartmentName,
-                                    EducationalQualifications = (from ec in _dbContext.educationalqualification
-                                                                 where ec.EmployeesEmpId == ls.EmployeeId
+                                   EducationalQualifications = (from ec in _dbContext.educationalqualification
+                                                                 where ec.EmployeeManagementEmployeeId == ls.EmployeeId
                                                                  select new Model.Educationalqualification
                                                                  {
-                                                                     EmployeesEmpId = ec.EmployeesEmpId,
                                                                      degree = ec.degree,
-                                                                     percentage = ec.percentage
-                                                                 }).ToList<Model.Educationalqualification>()
+                                                                     percentage = ec.percentage,
+                                                                     EmployeeManagementEmployeeId=ec.EmployeeManagementEmployeeId
+                                                                 }).ToList()
 
-                                }).ToList<Model.EmployeeManagement>();
-            return Task.FromResult(Employeelist);
+                                }).ToList();
+           return Task.FromResult(Employeelist);
         }
     }
 }

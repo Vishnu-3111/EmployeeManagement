@@ -11,7 +11,9 @@ namespace Employee.Model
     /// </summary>
     public class EmployeeManagement
     {
+      
         [Key]
+        
         public int EmployeeId { get; set; }
         public string EmployeeName { get; set; }
         public string Designation { get; set; }

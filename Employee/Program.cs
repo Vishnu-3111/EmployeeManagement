@@ -33,13 +33,13 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(); 
 }
-
+ //app.UseExceptionHandler("");
 app.UseHttpsRedirection();
-
+//app.UseStatusCodePages();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.AddGlobalErrorHandler();
 app.Run();

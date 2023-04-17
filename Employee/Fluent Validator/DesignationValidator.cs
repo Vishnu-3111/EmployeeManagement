@@ -9,6 +9,11 @@ namespace Employee.Fluent_Validator
            
 
         }
+        /// <summary>
+        /// Ued to Validate User to enter a Valid Designation
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
 
         protected override bool IsValid(PropertyValidatorContext context)
         {

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Employee.Migrations
 {
     [DbContext(typeof(EmpDbContext))]
-    [Migration("20230413134909_EmployeeManagement")]
-    partial class EmployeeManagement
+    [Migration("20230417043108_Educationalqualification")]
+    partial class Educationalqualification
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,9 +31,6 @@ namespace Employee.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("EmployeeManagementEmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EmployeesEmpId")
                         .HasColumnType("int");
 
                     b.Property<int>("percentage")

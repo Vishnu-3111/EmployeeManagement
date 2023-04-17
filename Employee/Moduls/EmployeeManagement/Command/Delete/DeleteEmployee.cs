@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Employee.Moduls.Command.Delete
 {
+    /// <summary>
+/// 
+/// </summary>
     public class DeleteEmployee : IRequest<ResultResponce>
     {
         public int EmployeeID { get; set; }
@@ -15,6 +18,13 @@ namespace Employee.Moduls.Command.Delete
         {
             _dbContext = dbContext;
         }
+        /// <summary>
+        /// This Handler method used to delete the particular record using EmployeeID
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public async Task<ResultResponce> Handle(DeleteEmployee command, CancellationToken cancellationToken)
         {
             var employees = await _dbContext.EmployeeManagement.Where(a => a.EmployeeId == command.EmployeeID).FirstOrDefaultAsync();

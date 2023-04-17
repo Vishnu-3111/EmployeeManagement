@@ -9,6 +9,11 @@ namespace Employee.Fluent_Validator
         {
 
         }
+        /// <summary>
+        /// This method allows to user enter a Valid Degrees by fluent validation Control
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
 
         protected override bool IsValid(PropertyValidatorContext context)
         { 

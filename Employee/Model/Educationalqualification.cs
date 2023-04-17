@@ -10,8 +10,7 @@ namespace Employee.Model
         [Key]
         public string degree { get; set; }
         public int percentage { get; set; }
-
-        public int EmployeesEmpId { get; set; }
+        public int EmployeeManagementEmployeeId { get; set; }
     }
 
 }

@@ -22,18 +22,26 @@ namespace Employee.Moduls.EmployeeManagement.Command.Create
    
     public class CreateEmployeeHandler : IRequestHandler<CreateEmployee, ResultResponce>
     {
+        /// <summary>
+        /// Dependency Injection of EmployeeDBcontext Class
+        /// </summary>
         
         private readonly EmpDbContext _dbContext;
         public CreateEmployeeHandler(EmpDbContext dbContext)
         {
             _dbContext = dbContext;
-           // this.educationQualificationDb = educationQualificationDb;
+          
         }
+        /// <summary>
+        /// This Handler Handles the Create new Employee details
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns> Retruns how many Rows effected and create status of this method </returns>
 
         public Task<ResultResponce> Handle(CreateEmployee request, CancellationToken cancellationToken)
         {
             ResultResponce response = new ResultResponce();
-            var EduationQalifications = new Model.Educationalqualification();
             var EmployeeDetails = new Model.EmployeeManagement();
             EmployeeDetails.EmployeeName = request.EmployeeName;
             EmployeeDetails.Pincode = request.Pincode;

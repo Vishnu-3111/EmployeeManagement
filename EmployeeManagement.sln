@@ -1,25 +1,200 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.5.33516.290
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employee", "Employee\Employee.csproj", "{A933FAA9-1B2F-40DA-A425-5FCC6401A095}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A933FAA9-1B2F-40DA-A425-5FCC6401A095}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A933FAA9-1B2F-40DA-A425-5FCC6401A095}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A933FAA9-1B2F-40DA-A425-5FCC6401A095}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A933FAA9-1B2F-40DA-A425-5FCC6401A095}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {33B93D88-5694-4779-AD8D-BD8CE4F2E035}
-	EndGlobalSection
-EndGlobal
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Employee</name>
+    </assembly>
+    <members>
+        <member name="M:Employee.Controllers.EmployeeController.CreateEmployee(Employee.Moduls.EmployeeManagement.Command.Create.CreateEmployee)">
+            <summary>
+            Creating Employee Details by Http Post Methods
+            </summary>
+            <param name="employee"></param>
+            <returns>It returns How many affected from Database and addition Informations</returns>
+        </member>
+        <member name="M:Employee.Controllers.EmployeeController.GetallEmployees">
+            <summary>
+            Its used to Fetch all Employee details
+            </summary>
+            <returns> All Employee Details</returns>
+        </member>
+        <member name="M:Employee.Controllers.EmployeeController.GetEmployeebyid(System.Int32)">
+            <summary>
+            Its used to Fetch One Employee details using Employee Id
+            </summary>
+            <param name="Id"></param>
+            <returns>One Employee details</returns>
+        </member>
+        <member name="M:Employee.Controllers.EmployeeController.UpdatEemployee(Employee.Moduls.EmployeeManagement.Command.Update.UpdateEmployee)">
+            <summary>
+            This Controller method used to Update the Employee details in Database
+            </summary>
+            <param name="employee"></param>
+            <returns>It returns How many affected from Database and addition Informations</returns>
+        </member>
+        <member name="M:Employee.Controllers.EmployeeController.DeleteEmployee(System.Int32)">
+            <summary>
+            This Controllers used to Delete the Employee Details From Database
+            </summary>
+            <param name="id"></param>
+            <returns>It returns How many affected from Database and addition Informations</returns>
+        </member>
+        <member name="M:Employee.Fluent_Validator.DegreeValidator.IsValid(FluentValidation.Validators.PropertyValidatorContext)">
+            <summary>
+            This method allows to user enter a Valid Degrees by fluent validation Control
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Employee.Fluent_Validator.DesignationValidator.IsValid(FluentValidation.Validators.PropertyValidatorContext)">
+            <summary>
+            Ued to Validate User to enter a Valid Designation
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Employee.Migrations.EmployeeManagement">
+            <inheritdoc />
+        </member>
+        <member name="M:Employee.Migrations.EmployeeManagement.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Employee.Migrations.EmployeeManagement.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Employee.Migrations.EmployeeManagement.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Employee.Migrations.Educationalqualification">
+            <inheritdoc />
+        </member>
+        <member name="M:Employee.Migrations.Educationalqualification.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Employee.Migrations.Educationalqualification.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Employee.Migrations.Educationalqualification.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Employee.Model.Educationalqualification">
+            <summary>
+            Education Qualification model used to add Education Qualification of employee
+            </summary>
+        </member>
+        <member name="T:Employee.Model.EmpDbContext">
+            <summary>
+            Connection to access Database Table
+            </summary>
+        </member>
+        <member name="T:Employee.Model.EmployeeManagement">
+            <summary>
+            Employee Management Class
+            </summary>
+        </member>
+        <member name="T:Employee.Model.ResultResponce">
+            <summary>
+            This Class Used to Return All The Actions 
+            </summary>
+        </member>
+        <member name="T:Employee.Moduls.EmployeeManagement.Command.Create.CreateEmployee">
+            <summary>
+            This Class used Create Or Add new employee
+            </summary>
+        </member>
+        <member name="F:Employee.Moduls.EmployeeManagement.Command.Create.CreateEmployeeHandler._dbContext">
+            <summary>
+            Dependency Injection of EmployeeDBcontext Class
+            </summary>
+        </member>
+        <member name="M:Employee.Moduls.EmployeeManagement.Command.Create.CreateEmployeeHandler.Handle(Employee.Moduls.EmployeeManagement.Command.Create.CreateEmployee,System.Threading.CancellationToken)">
+            <summary>
+            This Handler Handles the Create new Employee details
+            </summary>
+            <param name="request"></param>
+            <param name="cancellationToken"></param>
+            <returns> Retruns how many Rows effected and create status of this method </returns>
+        </member>
+        <member name="M:Employee.Moduls.EmployeeManagement.Command.Create.CreateEmployeeValidator.#ctor">
+            <summary>
+            This class used to validating the user entered details are in correct format
+            in createemployee class
+            </summary>
+        </member>
+        <member name="M:Employee.Moduls.EmployeeManagement.Command.Delete.DeleteEmployeevalidator.#ctor">
+            <summary>
+            used to validate user entered vaild employee id
+            </summary>
+        </member>
+        <member name="P:Employee.Moduls.EmployeeManagement.Command.Update.UpdateEmployee.Id">
+            <summary>
+            Propertys Get and Set Values for Update Opertion in EmployeeManagement Table
+            </summary>
+        </member>
+        <member name="F:Employee.Moduls.EmployeeManagement.Command.Update.UpdateEmployeeHandlers.dbContext">
+            <summary>
+            Dependency injection for EmpDbContext Class for Acessing database
+            for Update propose
+            </summary>
+        </member>
+        <member name="M:Employee.Moduls.EmployeeManagement.Command.Update.UpdateEmployeeHandlers.Handle(Employee.Moduls.EmployeeManagement.Command.Update.UpdateEmployee,System.Threading.CancellationToken)">
+            <summary>
+            Handler method performs for Update operation by getting values from Controller 
+            and return responce to Controller
+            </summary>
+            <param name="request"></param>
+            <param name="cancellationToken"></param>
+            <returns>This method returns How many rows affected and status of update </returns>
+        </member>
+        <member name="M:Employee.Moduls.EmployeeManagement.Command.Update.UpdateEmployeeValidator.#ctor">
+            <summary>
+            This class used to validating the user entered details are in correct format
+            in Updateemployee class
+            </summary>
+        </member>
+        <member name="T:Employee.Moduls.EmployeeManagement.Quers.GetEmployee">
+            <summary>
+            Get all records from the Employee Management Table
+            </summary>
+        </member>
+        <member name="M:Employee.Moduls.EmployeeManagement.Quers.GetEmployeeHandlers.Handle(Employee.Moduls.EmployeeManagement.Quers.GetEmployee,System.Threading.CancellationToken)">
+            <summary>
+            This handler used to Fetch all records from the Database
+            </summary>
+            <param name="request"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Employee.Moduls.EmployeeManagement.Quers.GetEmployeeByID">
+            <summary>
+            used to get a particular data from the database by using EmployeeID
+            </summary>
+        </member>
+        <member name="M:Employee.Moduls.EmployeeManagement.Quers.GetEmployeeByIDHandlers.Handle(Employee.Moduls.EmployeeManagement.Quers.GetEmployeeByID,System.Threading.CancellationToken)">
+            <summary>
+            Used to get a particular data from the database by using EmployeeID
+            </summary>
+            <param name="request"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Employee.Moduls.EmployeeManagement.Quers.GetEmployeeByIDValidator.#ctor">
+            <summary>
+            This class used to validate user to enter a comployee id in correct format
+            </summary>
+        </member>
+        <member name="T:Employee.Moduls.Command.Delete.DeleteEmployee">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Employee.Moduls.Command.Delete.DeleteEmployeeHandlers.Handle(Employee.Moduls.Command.Delete.DeleteEmployee,System.Threading.CancellationToken)">
+            <summary>
+            This Handler method used to delete the particular record using EmployeeID
+            </summary>
+            <param name="command"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+    </members>
+</doc>
