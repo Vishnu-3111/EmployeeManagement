@@ -17,17 +17,19 @@ namespace Employee.Moduls.EmployeeManagement.Command.Update
             RuleFor(model => model.Designation).NotNull();
             RuleFor(model => model.ManagerID).SetValidator(new ManagerValidator()).NotEmpty();
             RuleFor(model => model.Salary).NotEmpty().NotNull().SetValidator(new SalaryValidator());
-            RuleForEach(x => x.EducationalQualification).ChildRules(child =>
-            {
-                child.RuleFor(x => x.degree).NotEmpty().NotNull().SetValidator(new DegreeValidator());
-            }
-           );
+            RuleFor(model => model.degree).NotEmpty().NotNull().SetValidator(new DegreeValidator());
+            RuleFor(model => model.percentage).NotEmpty().NotNull().InclusiveBetween(0,100);
+            /*  RuleForEach(x => x.EducationalQualification).ChildRules(child =>
+              {
+                  child.RuleFor(x => x.degree).NotEmpty().NotNull().SetValidator(new DegreeValidator());
+              }
+             );
 
-            RuleForEach(x => x.EducationalQualification).ChildRules(child =>
-            {
-                child.RuleFor(x => x.percentage).NotEmpty().NotNull().InclusiveBetween(0, 100);
-            }
-            );
+              RuleForEach(x => x.EducationalQualification).ChildRules(child =>
+              {
+                  child.RuleFor(x => x.percentage).NotEmpty().NotNull().InclusiveBetween(0, 100);
+              }
+              );*/
         }
 
     }

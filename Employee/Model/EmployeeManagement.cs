@@ -1,8 +1,4 @@
-﻿using Employee.Moduls.EmployeeManagement.Command.Create;
-using FluentValidation;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
-using System.Text.RegularExpressions;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Employee.Model
 {
@@ -11,9 +7,9 @@ namespace Employee.Model
     /// </summary>
     public class EmployeeManagement
     {
-      
+
         [Key]
-        
+
         public int EmployeeId { get; set; }
         public string EmployeeName { get; set; }
         public string Designation { get; set; }
@@ -21,8 +17,9 @@ namespace Employee.Model
         public int ManagerID { get; set; }
         public int Salary { get; set; }
         public string DepartmentName { get; set; }
-        public List<Educationalqualification> EducationalQualifications { get; set; }
+        public string degree { get; set; }
+        public int percentage { get; set; }
+
+
     }
-
-
 }

@@ -1,5 +1,4 @@
-﻿using Employee.Moduls.EmployeeManagement.Command.Create;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Employee.Model
 {
@@ -12,6 +11,6 @@ namespace Employee.Model
         {
         }
         public DbSet<EmployeeManagement> EmployeeManagement { get; set; }
-        public DbSet<Educationalqualification> educationalqualification { get; set; }
+       // public DbSet<Educationalqualification> educationalqualification { get; set; }
     }
 }

@@ -21,7 +21,9 @@ namespace Employee.Migrations
                     Pincode = table.Column<int>(type: "int", nullable: false),
                     ManagerID = table.Column<int>(type: "int", nullable: false),
                     Salary = table.Column<int>(type: "int", nullable: false),
-                    DepartmentName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    DepartmentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    degree = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    percentage = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

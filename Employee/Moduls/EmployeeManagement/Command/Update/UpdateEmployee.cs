@@ -1,19 +1,12 @@
-﻿using Azure.Core;
-using Employee.Model;
-using Employee.Moduls.EmployeeManagement.Exeception_Handlings;
+﻿using Employee.Model;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Net;
-using System.Web.Http;
-using System.Web.Http.Results;
-using Xceed.Wpf.Toolkit;
+using Serilog;
 using static Employee.Moduls.EmployeeManagement.Exeception_Handlings.InvalidIDException;
 
 namespace Employee.Moduls.EmployeeManagement.Command.Update
 {
-    
-    public class UpdateEmployee : IRequest<ResultResponce>
+
+    public class UpdateEmployee : IRequest<BaseResponse>
     {
         /// <summary>
         /// Propertys Get and Set Values for Update Opertion in EmployeeManagement Table
@@ -26,10 +19,11 @@ namespace Employee.Moduls.EmployeeManagement.Command.Update
         public int ManagerID { get; set; }
         public int Salary { get; set; }
         public string DepartmentName { get; set; }
-        public List<Model.Educationalqualification> EducationalQualification { get; set; }
+        public string degree { get; set; }
+        public int percentage { get; set; }
 
     }
-    public class UpdateEmployeeHandlers : IRequestHandler<UpdateEmployee, ResultResponce>
+    public class UpdateEmployeeHandlers : IRequestHandler<UpdateEmployee, BaseResponse>
     {
         /// <summary>
         /// Dependency injection for EmpDbContext Class for Acessing database
@@ -49,10 +43,10 @@ namespace Employee.Moduls.EmployeeManagement.Command.Update
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
         /// <returns>This method returns How many rows affected and status of update </returns>
-        public Task<ResultResponce> Handle(UpdateEmployee request, CancellationToken cancellationToken)
+        public Task<BaseResponse> Handle(UpdateEmployee request, CancellationToken cancellationToken)
         {
 
-            ResultResponce response = new ResultResponce();
+            BaseResponse response = new BaseResponse();
             
             try
             {
@@ -70,7 +64,8 @@ namespace Employee.Moduls.EmployeeManagement.Command.Update
                     entity.Salary = request.Salary;
                     entity.Designation = request.Designation;
                     entity.ManagerID = request.ManagerID;
-                    entity.EducationalQualifications = request.EducationalQualification;
+                    entity.degree = request.degree;
+                    entity.percentage = request.percentage;
                     dbContext.Update(entity);
                     response.ResponseValue = dbContext.SaveChanges();
                     response.Information = "Employee details Updated";
@@ -79,13 +74,13 @@ namespace Employee.Moduls.EmployeeManagement.Command.Update
                 }
                 else
                 {
-                    throw new Exception();
+                    throw new InvalidIDExceptions();
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex )
             {
-               
-                throw new InvalidIDException();
+                Log.Error("");
+                throw;
                 
             }
           

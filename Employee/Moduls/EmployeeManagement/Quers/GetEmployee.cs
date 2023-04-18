@@ -1,6 +1,6 @@
 ﻿using Employee.Model;
-using Employee.Moduls.EmployeeManagement.Command.Create;
 using MediatR;
+using static Employee.Moduls.EmployeeManagement.Exeception_Handlings.InvalidIDException;
 
 namespace Employee.Moduls.EmployeeManagement.Quers
 {
@@ -27,25 +27,43 @@ namespace Employee.Moduls.EmployeeManagement.Quers
         {
 
 
+            try
+            {
+                var Employeelist = _dbContext.EmployeeManagement.ToList();
+               /* var Employeelist = (from ls in _dbContext.EmployeeManagement
+                                    select new Model.EmployeeManagement
+                                    {
+                                        EmployeeId = ls.EmployeeId,
+                                        EmployeeName = ls.EmployeeName,
+                                        Designation = ls.Designation,
+                                        DepartmentName = ls.DepartmentName,
+                                        Pincode = ls.Pincode,
+                                        ManagerID = ls.ManagerID,
+                                        Salary=ls.Salary,
+                                        EducationalQualifications = (from ec in _dbContext.educationalqualification
+                                                                     where ec.EmployeeManagementEmployeeId == ls.EmployeeId
+                                                                     select new Model.Educationalqualification
+                                                                     {
+                                                                         degree = ec.degree,
+                                                                         percentage = ec.percentage,
+                                                                         EmployeeManagementEmployeeId = ec.EmployeeManagementEmployeeId
+                                                                     }).ToList()
 
-            var Employeelist = (from ls in _dbContext.EmployeeManagement
-                                select new Model.EmployeeManagement
-                                {
-                                    EmployeeId = ls.EmployeeId,
-                                    EmployeeName = ls.EmployeeName,
-                                    Designation = ls.Designation,
-                                    DepartmentName = ls.DepartmentName,
-                                   EducationalQualifications = (from ec in _dbContext.educationalqualification
-                                                                 where ec.EmployeeManagementEmployeeId == ls.EmployeeId
-                                                                 select new Model.Educationalqualification
-                                                                 {
-                                                                     degree = ec.degree,
-                                                                     percentage = ec.percentage,
-                                                                     EmployeeManagementEmployeeId=ec.EmployeeManagementEmployeeId
-                                                                 }).ToList()
+                                    }).ToList();*/
+                if (Employeelist != null)
+                {
+                    return Task.FromResult(Employeelist);
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch (Exception )
+            {
+                throw new InvalidIDExceptions();
 
-                                }).ToList();
-           return Task.FromResult(Employeelist);
+            }
         }
     }
 }

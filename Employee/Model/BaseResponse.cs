@@ -3,7 +3,7 @@
     /// <summary>
     /// This Class Used to Return All The Actions 
     /// </summary>
-    public class ResultResponce
+    public class BaseResponse
     {
         public int ResponseValue { get; set; }
         public string Information { get; set; }

@@ -64,21 +64,9 @@
         <member name="M:Employee.Migrations.EmployeeManagement.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
-        <member name="T:Employee.Migrations.Educationalqualification">
-            <inheritdoc />
-        </member>
-        <member name="M:Employee.Migrations.Educationalqualification.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:Employee.Migrations.Educationalqualification.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:Employee.Migrations.Educationalqualification.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="T:Employee.Model.Educationalqualification">
+        <member name="T:Employee.Model.BaseResponse">
             <summary>
-            Education Qualification model used to add Education Qualification of employee
+            This Class Used to Return All The Actions 
             </summary>
         </member>
         <member name="T:Employee.Model.EmpDbContext">
@@ -91,11 +79,6 @@
             Employee Management Class
             </summary>
         </member>
-        <member name="T:Employee.Model.ResultResponce">
-            <summary>
-            This Class Used to Return All The Actions 
-            </summary>
-        </member>
         <member name="T:Employee.Moduls.EmployeeManagement.Command.Create.CreateEmployee">
             <summary>
             This Class used Create Or Add new employee
@@ -105,14 +88,6 @@
             <summary>
             Dependency Injection of EmployeeDBcontext Class
             </summary>
-        </member>
-        <member name="M:Employee.Moduls.EmployeeManagement.Command.Create.CreateEmployeeHandler.Handle(Employee.Moduls.EmployeeManagement.Command.Create.CreateEmployee,System.Threading.CancellationToken)">
-            <summary>
-            This Handler Handles the Create new Employee details
-            </summary>
-            <param name="request"></param>
-            <param name="cancellationToken"></param>
-            <returns> Retruns how many Rows effected and create status of this method </returns>
         </member>
         <member name="M:Employee.Moduls.EmployeeManagement.Command.Create.CreateEmployeeValidator.#ctor">
             <summary>
@@ -187,14 +162,16 @@
             
             </summary>
         </member>
-        <member name="M:Employee.Moduls.Command.Delete.DeleteEmployeeHandlers.Handle(Employee.Moduls.Command.Delete.DeleteEmployee,System.Threading.CancellationToken)">
+        <member name="T:Employee.Swagger_Documentation.ConfigureApiVersioning">
             <summary>
-            This Handler method used to delete the particular record using EmployeeID
+            Configure the API versioning properties of the project.
             </summary>
-            <param name="command"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Employee.Swagger_Documentation.ConfigureApiVersioning.AddApiVersioningConfigured(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configure the API versioning properties of the project, such as return headers, version format, etc.
+            </summary>
+            <param name="services"></param>
         </member>
     </members>
 </doc>

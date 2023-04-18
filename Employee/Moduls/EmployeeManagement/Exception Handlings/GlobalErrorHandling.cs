@@ -1,5 +1,4 @@
-﻿using Employee.Moduls.EmployeeManagement.Exeception_Handlings;
-//using Newtonsoft.Json;
+﻿//using Newtonsoft.Json;
 using System.Net;
 using System.Text.Json;
 using static Employee.Moduls.EmployeeManagement.Exeception_Handlings.InvalidIDException;
@@ -32,16 +31,21 @@ namespace Employee.Common.Behaviours
             string message;
             //var stackTrace=string.Empty;
             var exceptionType=exception.GetType();
-            if (exceptionType == typeof(InvalidIDException))
+            if (exceptionType == typeof(InvalidIDExceptions))
             {
                 message = exception.Message;
                 status = HttpStatusCode.NotFound;
             }
-            else
+            else if(exceptionType == typeof(BadRequest))
             {
+                    message = exception.Message;
+                    status = HttpStatusCode.BadRequest;
+            }
+                else
+                {
                 status= HttpStatusCode.InternalServerError;
                 message= exception.Message;
-            }
+                 }
             var exceptionResult = JsonSerializer.Serialize(new { ErrorMessage = message });
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)status;

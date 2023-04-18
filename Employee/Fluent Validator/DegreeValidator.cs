@@ -1,5 +1,4 @@
 ﻿using FluentValidation.Validators;
-using Microsoft.AspNetCore.Http;
 
 namespace Employee.Fluent_Validator
 {

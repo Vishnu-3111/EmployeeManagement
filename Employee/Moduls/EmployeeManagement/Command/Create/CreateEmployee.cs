@@ -1,13 +1,12 @@
 ﻿using Employee.Model;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+using static Employee.Moduls.EmployeeManagement.Exeception_Handlings.InvalidIDException;
 
 namespace Employee.Moduls.EmployeeManagement.Command.Create
 {/// <summary>
 /// This Class used Create Or Add new employee
 /// </summary>
-    public class CreateEmployee : IRequest<ResultResponce>
+    public class CreateEmployee : IRequest<BaseResponse>
     {
         public string EmployeeName { get; set; }
         public string Designation { get; set; }
@@ -15,12 +14,13 @@ namespace Employee.Moduls.EmployeeManagement.Command.Create
         public int ManagerID { get; set; }
         public int Salary { get; set; }
         public string DepartmentName { get; set; }
-        public List<Model.Educationalqualification> EducationalQualification { get; set; }
+        public string degree { get; set; }
+        public int percentage { get; set; }
     }
    
    
    
-    public class CreateEmployeeHandler : IRequestHandler<CreateEmployee, ResultResponce>
+    public class CreateEmployeeHandler : IRequestHandler<CreateEmployee, BaseResponse>
     {
         /// <summary>
         /// Dependency Injection of EmployeeDBcontext Class
@@ -32,29 +32,48 @@ namespace Employee.Moduls.EmployeeManagement.Command.Create
             _dbContext = dbContext;
           
         }
-        /// <summary>
-        /// This Handler Handles the Create new Employee details
-        /// </summary>
-        /// <param name="request"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns> Retruns how many Rows effected and create status of this method </returns>
+        //This Handler Handles the Create new Employee details
 
-        public Task<ResultResponce> Handle(CreateEmployee request, CancellationToken cancellationToken)
+        public Task<BaseResponse> Handle(CreateEmployee request, CancellationToken cancellationToken)
         {
-            ResultResponce response = new ResultResponce();
-            var EmployeeDetails = new Model.EmployeeManagement();
-            EmployeeDetails.EmployeeName = request.EmployeeName;
-            EmployeeDetails.Pincode = request.Pincode;
-            EmployeeDetails.DepartmentName = request.DepartmentName;
-            EmployeeDetails.Salary = request.Salary;
-            EmployeeDetails.Designation = request.Designation;
-            EmployeeDetails.ManagerID = request.ManagerID;
-            EmployeeDetails.EducationalQualifications = request.EducationalQualification;
-            _dbContext.EmployeeManagement.Add(EmployeeDetails);
-            response.ResponseValue= _dbContext.SaveChanges();
-            response.Information = "Employee Details Created";
+            //This Try block Throws any Error during create operations
+            try
+            {
+                BaseResponse response = new BaseResponse();
+                var EmployeeDetails = new Model.EmployeeManagement();
+                EmployeeDetails.EmployeeName = request.EmployeeName;
+                EmployeeDetails.Pincode = request.Pincode;
+                EmployeeDetails.DepartmentName = request.DepartmentName;
+                EmployeeDetails.Salary = request.Salary;
+                EmployeeDetails.Designation = request.Designation;
+                EmployeeDetails.ManagerID = request.ManagerID;
+                EmployeeDetails.degree= request.degree;
+                EmployeeDetails.percentage= request.percentage;
 
-            return Task.FromResult(response);
+                //if(request.EducationalQualification.Count > 0)
+                //{
+                //    foreach(var item in request.EducationalQualification)
+                //    {
+                //       List< Educationalqualification >eq = new List<Educationalqualification>();
+                //        eq.Add(item);
+                //        EmployeeDetails.EducationalQualifications=eq;
+                //    }
+                //}
+                _dbContext.EmployeeManagement.Add(EmployeeDetails);
+                               
+                response.ResponseValue = _dbContext.SaveChanges();
+                response.Information = "Employee Details Created";
+                if (response.ResponseValue == 0)
+                {
+                    throw new BadRequest();
+                }
+                return Task.FromResult(response);
+            }
+            catch(Exception)
+            {
+
+                throw ;
+            }
         }
     }
 }
