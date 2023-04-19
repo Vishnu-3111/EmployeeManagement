@@ -9,7 +9,7 @@ namespace Employee.Moduls.EmployeeManagement.Quers
         /// </summary>
         public GetEmployeeByIDValidator()
         {
-            RuleFor(x => x.EmployeeID).NotEmpty().NotNull();
+            RuleFor(x => x.EmployeeID).NotEmpty().GreaterThan(0);
         }
     }
 }

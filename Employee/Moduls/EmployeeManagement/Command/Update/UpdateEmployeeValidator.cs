@@ -10,11 +10,11 @@ namespace Employee.Moduls.EmployeeManagement.Command.Update
      /// </summary>
         public UpdateEmployeeValidator()
         {
-            RuleFor(model => model.Id).NotEmpty().NotNull();
-            RuleFor(model => model.Employeename).NotNull().NotEmpty().SetValidator(new NameValidation());
+            RuleFor(model => model.EmployeeID).NotEmpty().GreaterThan(0);
+            RuleFor(model => model.EmployeeName).NotNull().NotEmpty().SetValidator(new NameValidation());
             RuleFor(model => model.DepartmentName).NotNull().NotEmpty().SetValidator(new NameValidation());
             RuleFor(model => model.Pincode).NotNull().SetValidator(new PincodeValidators());
-            RuleFor(model => model.Designation).NotNull();
+            RuleFor(model => model.Designation).NotNull().NotEmpty().SetValidator(new DesignationValidator());
             RuleFor(model => model.ManagerID).SetValidator(new ManagerValidator()).NotEmpty();
             RuleFor(model => model.Salary).NotEmpty().NotNull().SetValidator(new SalaryValidator());
             RuleFor(model => model.degree).NotEmpty().NotNull().SetValidator(new DegreeValidator());

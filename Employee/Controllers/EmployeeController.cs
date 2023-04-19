@@ -1,4 +1,5 @@
-﻿using Employee.Model;
+﻿using Employee.LoggerExtention;
+using Employee.Model;
 using Employee.Moduls.Command.Delete;
 using Employee.Moduls.EmployeeManagement.Command.Create;
 using Employee.Moduls.EmployeeManagement.Command.Update;
@@ -15,10 +16,13 @@ namespace Employee.Controllers
        
         //Dependence Injection of IMediator interface
         
+        
         private readonly IMediator _mediator;
-        public EmployeeController(IMediator mediator)
+        private IloggerError _IloggerError;
+        public EmployeeController(IMediator mediator,IloggerError iloggerError)
         {
             _mediator = mediator;
+            _IloggerError = iloggerError;
         }
         /// <summary>
         /// Creating Employee Record

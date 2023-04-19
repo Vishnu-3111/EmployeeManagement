@@ -11,7 +11,7 @@ namespace Employee.Moduls.EmployeeManagement.Command.Delete
         /// </summary>
         public DeleteEmployeevalidator()
         {
-            RuleFor(x => x.EmployeeID).NotEmpty().NotNull();
+            RuleFor(x => x.EmployeeID).NotEmpty().GreaterThan(0);
         }
     }
 }

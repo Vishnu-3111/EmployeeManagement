@@ -1,4 +1,5 @@
-﻿using Employee.Model;
+﻿using Azure;
+using Employee.Model;
 using MediatR;
 using static Employee.Moduls.EmployeeManagement.Exeception_Handlings.InvalidIDException;
 
@@ -36,10 +37,10 @@ namespace Employee.Moduls.EmployeeManagement.Command.Create
 
         public Task<BaseResponse> Handle(CreateEmployee request, CancellationToken cancellationToken)
         {
+                BaseResponse response = new BaseResponse();
             //This Try block Throws any Error during create operations
             try
             {
-                BaseResponse response = new BaseResponse();
                 var EmployeeDetails = new Model.EmployeeManagement();
                 EmployeeDetails.EmployeeName = request.EmployeeName;
                 EmployeeDetails.Pincode = request.Pincode;
@@ -61,7 +62,7 @@ namespace Employee.Moduls.EmployeeManagement.Command.Create
                 //}
                 _dbContext.EmployeeManagement.Add(EmployeeDetails);
                                
-                response.ResponseValue = _dbContext.SaveChanges();
+                response.ResponseValue =  _dbContext.SaveChanges();
                 response.Information = "Employee Details Created";
                 if (response.ResponseValue == 0)
                 {
@@ -69,11 +70,11 @@ namespace Employee.Moduls.EmployeeManagement.Command.Create
                 }
                 return Task.FromResult(response);
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-
-                throw ;
+                //throw ;
             }
+            return Task.FromResult(response);
         }
     }
 }

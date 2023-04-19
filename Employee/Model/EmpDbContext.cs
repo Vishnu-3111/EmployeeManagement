@@ -7,10 +7,17 @@ namespace Employee.Model
     /// </summary>
     public class EmpDbContext : DbContext
     {
-        public EmpDbContext(DbContextOptions options) : base(options)
+        public EmpDbContext(DbContextOptions<EmpDbContext> options) : base(options)
         {
         }
-        public DbSet<EmployeeManagement> EmployeeManagement { get; set; }
-       // public DbSet<Educationalqualification> educationalqualification { get; set; }
+
+        public virtual DbSet<EmployeeManagement> EmployeeManagement { get; set; }
+
+
+
+
+        // public DbSet<EmployeeManagement> EmployeeManagement { get; set; }
+        // public DbSet<Educationalqualification> educationalqualification { get; set; }
+
     }
 }

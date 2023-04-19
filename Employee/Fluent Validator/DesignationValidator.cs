@@ -21,12 +21,13 @@ namespace Employee.Fluent_Validator
             Designationdetails.Add("Project Manager");
             Designationdetails.Add("TeamLeader");
             Designationdetails.Add("Junior Engineer");
-            Designationdetails.Add("Senior Senior");
-            var result = context.PropertyValue.ToString();
+            Designationdetails.Add("Senior");
+            
+         
             bool results=false;
             for(int i = 0; i < Designationdetails.Count; i++)
             {
-                bool response=Designationdetails[i].Equals(result);
+                bool response=Designationdetails[i].Equals(context.PropertyValue.ToString());
                 if(response==true)
                 {
                     results=true;

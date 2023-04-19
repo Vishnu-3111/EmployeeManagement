@@ -13,7 +13,14 @@ namespace Employee.Fluent_Validator
         protected override bool IsValid(PropertyValidatorContext context)
         {
             Regex regex = new Regex(@"^[a-z]+$", RegexOptions.IgnoreCase);
-            return regex.IsMatch(context.PropertyValue.ToString());
+            if (context.PropertyValue != null)
+            {
+                return regex.IsMatch(context.PropertyValue.ToString());
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

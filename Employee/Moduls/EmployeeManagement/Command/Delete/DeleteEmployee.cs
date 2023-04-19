@@ -2,7 +2,11 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using System.Net;
+using System;
 using static Employee.Moduls.EmployeeManagement.Exeception_Handlings.InvalidIDException;
+using LoggerExtensions = Serilog.LoggerExtensions;
+using Employee.LoggerExtention;
 
 namespace Employee.Moduls.Command.Delete
 {
@@ -15,12 +19,16 @@ namespace Employee.Moduls.Command.Delete
     }
     public class DeleteEmployeeHandlers : IRequestHandler<DeleteEmployee, BaseResponse>
     {
+       
         private readonly EmpDbContext _dbContext;
-        public DeleteEmployeeHandlers(EmpDbContext dbContext)
+        private IloggerError _logger;
+        public DeleteEmployeeHandlers(EmpDbContext dbContext,IloggerError logger)
         {
             _dbContext = dbContext;
+            _logger = logger;
+           
         }
-       //This Handler delete the Employee details using Employee ID
+        //This Handler delete the Employee details using Employee ID
         public async Task<BaseResponse> Handle(DeleteEmployee command, CancellationToken cancellationToken)
         {
             var employees = await _dbContext.EmployeeManagement.Where(a => a.EmployeeId == command.EmployeeID).FirstOrDefaultAsync();
@@ -44,8 +52,9 @@ namespace Employee.Moduls.Command.Delete
             }
             catch (Exception ex ) 
             {
-                Log.Error("");
-                throw new Exception();
+                _logger.Error("error accored");
+                throw ex;
+              
             }
         }
     }

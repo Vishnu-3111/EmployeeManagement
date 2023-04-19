@@ -12,12 +12,12 @@ namespace Employee.Moduls.EmployeeManagement.Command.Create
         public CreateEmployeeValidator()
         {
             RuleFor(model => model.EmployeeName).NotNull().NotEmpty().SetValidator(new NameValidation());
-            RuleFor(model => model.DepartmentName).NotNull().NotEmpty().MaximumLength(10).SetValidator(new NameValidation());
-            RuleFor(model => model.Pincode).NotEmpty().NotNull().SetValidator(new PincodeValidators());
-            RuleFor(model => model.Designation).NotNull().NotEmpty().SetValidator(new DesignationValidator());
+            RuleFor(model => model.DepartmentName).NotNull().NotEmpty().MaximumLength(15).SetValidator(new NameValidation());
+            RuleFor(model => model.Pincode).NotEmpty().SetValidator(new PincodeValidators());
+            RuleFor(model => model.Designation).NotEmpty().SetValidator(new DesignationValidator());
             RuleFor(model => model.ManagerID).SetValidator(new ManagerValidator()).NotEmpty();
-            RuleFor(model => model.degree).NotEmpty().NotNull().SetValidator(new DegreeValidator());
-            RuleFor(model => model.percentage).NotEmpty().NotNull().InclusiveBetween(0,100);
+            RuleFor(model => model.degree).NotEmpty().SetValidator(new DegreeValidator());
+            RuleFor(model => model.percentage).NotEmpty().InclusiveBetween(0,100);
 
 
             /* RuleForEach(x => x.EducationalQualification).ChildRules(child =>

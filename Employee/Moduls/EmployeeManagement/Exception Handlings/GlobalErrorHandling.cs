@@ -1,4 +1,5 @@
 ﻿//using Newtonsoft.Json;
+using Employee.LoggerExtention;
 using System.Net;
 using System.Text.Json;
 using static Employee.Moduls.EmployeeManagement.Exeception_Handlings.InvalidIDException;
@@ -8,9 +9,11 @@ namespace Employee.Common.Behaviours
     public class GlobalErrorHandling
     {
         private readonly RequestDelegate _requestDelegate;
-        public GlobalErrorHandling(RequestDelegate requestDelegate)
+        private readonly IloggerError _logger;
+        public GlobalErrorHandling(RequestDelegate requestDelegate,IloggerError logger)
         {
             _requestDelegate = requestDelegate;
+            _logger = logger;
         }
         public async Task Invoke(HttpContext context)
         {
@@ -20,6 +23,7 @@ namespace Employee.Common.Behaviours
             }
             catch (Exception ex)
             {
+                _logger.Error("SomeThing Went Worng {ex}:");
                 await HandleExceptionAsync(context, ex);
             }
 

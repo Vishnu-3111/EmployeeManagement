@@ -11,8 +11,8 @@ namespace Employee.Moduls.EmployeeManagement.Command.Update
         /// <summary>
         /// Propertys Get and Set Values for Update Opertion in EmployeeManagement Table
         /// </summary>
-        public int Id { get; set; }
-        public string Employeename { get; set; }
+        public int EmployeeID { get; set; }
+        public string EmployeeName { get; set; }
 
         public string Designation { get; set; }
         public int Pincode { get; set; }
@@ -51,14 +51,14 @@ namespace Employee.Moduls.EmployeeManagement.Command.Update
             try
             {
                 
-                var entity = dbContext.EmployeeManagement.Where(x => x.EmployeeId == request.Id).FirstOrDefault();
+                var entity = dbContext.EmployeeManagement.Where(x => x.EmployeeId == request.EmployeeID).FirstOrDefault();
 
                 if (entity != null)
                 {
 
 
-                    entity.EmployeeId = request.Id;
-                    entity.EmployeeName = request.Employeename;
+                    entity.EmployeeId = request.EmployeeID;
+                    entity.EmployeeName = request.EmployeeName;
                     entity.Pincode = request.Pincode;
                     entity.DepartmentName = request.DepartmentName;
                     entity.Salary = request.Salary;

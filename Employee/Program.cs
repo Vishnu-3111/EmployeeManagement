@@ -1,5 +1,6 @@
 
 using Employee.Common.Behaviours;
+using Employee.LoggerExtention;
 using Employee.Model;
 using Employee.Swagger_Documentation;
 using FluentValidation;
@@ -8,10 +9,11 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Reflection;
+using NLog;
+
 
 var builder = WebApplication.CreateBuilder(args);
 var logger = new LoggerConfiguration().ReadFrom.Configuration(builder.Configuration).Enrich.FromLogContext().CreateLogger();
-
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 // Add services to the container.
@@ -35,6 +37,7 @@ builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 builder.Services.AddSingleton(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
+builder.Services.AddSingleton<IloggerError, LoggerError>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
