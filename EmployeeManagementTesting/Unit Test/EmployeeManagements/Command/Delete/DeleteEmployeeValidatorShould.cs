@@ -1,12 +1,6 @@
 ﻿using Employee.Moduls.Command.Delete;
 using Employee.Moduls.EmployeeManagement.Command.Delete;
-using Employee.Moduls.EmployeeManagement.Quers;
 using FluentValidation.TestHelper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmployeeManagementTesting.Unit_Test.EmployeeManagement.Command.Delete
 {
@@ -19,19 +13,19 @@ namespace EmployeeManagementTesting.Unit_Test.EmployeeManagement.Command.Delete
         }
         #region Unit Test For EmployeeID
         [Fact]
-        public void GetByEmployeeIDNotEmptyValidator()
+        public void FailsEmployeeIDNotEmpty()
         {
             var request = new DeleteEmployee() { EmployeeID = 0 };
             validator.ShouldHaveValidationErrorFor(x => x.EmployeeID, request);
         }
         [Fact]
-        public void GetByEmployeeIDNotGreaterthanValidator()
+        public void FailsEmployeeIDNotGreaterthan()
         {
             var request = new DeleteEmployee() { EmployeeID = -10, };
             validator.ShouldHaveValidationErrorFor(x => x.EmployeeID, request);
         }
         [Fact]
-        public void GetByEmployeeIDShouldNotHaveValidationError()
+        public void EmployeeIDPassValidation()
         {
             var request = new DeleteEmployee() { EmployeeID = 3 };
             validator.ShouldNotHaveValidationErrorFor(x => x.EmployeeID, request);

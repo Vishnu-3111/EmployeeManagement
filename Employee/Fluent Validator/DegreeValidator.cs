@@ -4,23 +4,24 @@ namespace Employee.Fluent_Validator
 {
     public class DegreeValidator:PropertyValidator
     {
-        public DegreeValidator():base("Enter Valid Degree")
+        public DegreeValidator():base("Invalid Degree")
         {
 
         }
-        /// <summary>
-        /// This method allows to user enter a Valid Degrees by fluent validation Control
-        /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
-
+       
+        //used to check degree Of employees 
         protected override bool IsValid(PropertyValidatorContext context)
         { 
             List<string> DegreeList = new List<string>();
             DegreeList.Add("B.E");
             DegreeList.Add("B.Sc");
-            DegreeList.Add("MSC");
+            DegreeList.Add("M.SC");
             DegreeList.Add("B.tec");
+            DegreeList.Add("M.E");
+            DegreeList.Add("B.Com");
+            DegreeList.Add("M.Com");
+            DegreeList.Add("B.B.A");
+            DegreeList.Add("M.B.A");
 
             bool results = false;
             for (int i = 0; i < DegreeList.Count; i++)

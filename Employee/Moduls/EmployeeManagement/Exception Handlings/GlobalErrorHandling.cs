@@ -42,14 +42,20 @@ namespace Employee.Common.Behaviours
             }
             else if(exceptionType == typeof(BadRequest))
             {
-                    message = exception.Message;
+                    message = exception.Message; 
                     status = HttpStatusCode.BadRequest;
             }
-                else
-                {
+            else if (exceptionType == typeof(NoDataFound))
+            {
+                message = exception.Message; //NoDataFound
+                status = HttpStatusCode.NotFound;
+            }
+
+            else
+            {
                 status= HttpStatusCode.InternalServerError;
                 message= exception.Message;
-                 }
+            }
             var exceptionResult = JsonSerializer.Serialize(new { ErrorMessage = message });
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)status;

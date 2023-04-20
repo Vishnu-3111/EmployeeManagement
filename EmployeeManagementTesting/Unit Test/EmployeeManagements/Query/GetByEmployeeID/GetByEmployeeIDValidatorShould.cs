@@ -1,11 +1,5 @@
-﻿using Employee.Moduls.EmployeeManagement.Command.Update;
-using Employee.Moduls.EmployeeManagement.Quers;
+﻿using Employee.Moduls.EmployeeManagement.Quers.GetEmployeeById;
 using FluentValidation.TestHelper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmployeeManagementTesting.Unit_Test.EmployeeManagement.Query
 {
@@ -18,19 +12,19 @@ namespace EmployeeManagementTesting.Unit_Test.EmployeeManagement.Query
         }
         #region Unit Test For EmployeeID
         [Fact]
-        public void GetByEmployeeIDNotEmptyValidator()
+        public void FailsEmployeeIDNotEmpty()
         {
             var request = new GetEmployeeByID() { EmployeeID=0 };
             validator.ShouldHaveValidationErrorFor(x => x.EmployeeID, request);
         }
         [Fact]
-        public void GetByEmployeeIDNotGreaterthanValidator()
+        public void FailsEmployeeIDNotGreaterthan()
         {
             var request = new GetEmployeeByID() { EmployeeID = -10,};
             validator.ShouldHaveValidationErrorFor(x => x.EmployeeID, request);
         }
         [Fact]
-        public void GetByEmployeeIDShouldNotHaveValidationError()
+        public void EmployeeIDPassValidation()
         {
             var request = new GetEmployeeByID() {EmployeeID = 3 };
             validator.ShouldNotHaveValidationErrorFor(x => x.EmployeeID, request);

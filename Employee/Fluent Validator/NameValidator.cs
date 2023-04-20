@@ -3,13 +3,13 @@ using System.Text.RegularExpressions;
 
 namespace Employee.Fluent_Validator
 {
-    public class NameValidation : PropertyValidator
+    public class NameValidator : PropertyValidator
     {
-        public NameValidation() : base("Only Alphabets")
+        public NameValidator() : base(" Invalid Name")
         {
 
         }
-
+        //This Validator Only allows Albhabets
         protected override bool IsValid(PropertyValidatorContext context)
         {
             Regex regex = new Regex(@"^[a-z]+$", RegexOptions.IgnoreCase);

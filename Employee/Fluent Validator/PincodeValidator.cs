@@ -2,13 +2,13 @@
 
 namespace Employee.Fluent_Validator
 {
-    public class PincodeValidators : PropertyValidator
+    public class PincodeValidator : PropertyValidator
     {
-        public PincodeValidators() : base("Invalid Pincode")
+        public PincodeValidator() : base("Invalid Pincode")
         {
 
         }
-
+        //Pincode Length should be greater than 6 digts
         protected override bool IsValid(PropertyValidatorContext context)
         {
             string GetData = context.PropertyValue.ToString();

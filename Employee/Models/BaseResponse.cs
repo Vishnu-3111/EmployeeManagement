@@ -1,7 +1,7 @@
 ﻿namespace Employee.Model
 {
     /// <summary>
-    /// This Class Used to Return All The Actions 
+    /// This Class Used to Return Response For All Actions 
     /// </summary>
     public class BaseResponse
     {

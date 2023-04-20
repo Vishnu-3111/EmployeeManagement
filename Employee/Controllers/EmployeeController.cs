@@ -3,7 +3,8 @@ using Employee.Model;
 using Employee.Moduls.Command.Delete;
 using Employee.Moduls.EmployeeManagement.Command.Create;
 using Employee.Moduls.EmployeeManagement.Command.Update;
-using Employee.Moduls.EmployeeManagement.Quers;
+using Employee.Moduls.EmployeeManagement.Quers.GetEmployeeById;
+using Employee.Moduls.EmployeeManagement.Quers.GetEmployeeList;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,29 +14,107 @@ namespace Employee.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
-       
-        //Dependence Injection of IMediator interface
-        
-        
+
+
         private readonly IMediator _mediator;
         private IloggerError _IloggerError;
-        public EmployeeController(IMediator mediator,IloggerError iloggerError)
+        public EmployeeController(IMediator mediator, IloggerError iloggerError)
         {
             _mediator = mediator;
             _IloggerError = iloggerError;
         }
+        #region Commands
         /// <summary>
-        /// Creating Employee Record
+        /// Used To Create A New Employee
         /// </summary>
+        /// <remarks>
+        /// {
+        /// 
+        ///      "EmployeeName":"Test",
+        ///      
+        ///      "Designation":"Junior Engineer",
+        ///      
+        ///      "Pincode":"654321",
+        ///      
+        ///      "ManagerID":"4321",
+        ///      
+        ///      "Salary":"15000",
+        ///      
+        ///      "DepartmentName":"BackEnd Developer"
+        ///      
+        ///      "degree":"B.B.A",
+        ///      
+        ///      "percentage":"68"
+        /// 
+        /// }
+        /// </remarks>
         /// <param name="employee"></param>
-        /// <returns>It returns How many affected from Database and addition Informations</returns>
+        /// <returns>returns affected rows and addition Informations</returns>
         [HttpPost]
         public async Task<BaseResponse> CreateEmployee(CreateEmployee employee)
         {
-           
-            var result=await _mediator.Send(employee);
+            var result = await _mediator.Send(employee);
             return result;
         }
+
+        /// <summary>
+        ///  Updates Employee details 
+        /// </summary>
+        /// <remarks> 
+        /// 
+        /// {
+        /// 
+        ///      "EmployeeID":"1",
+        ///      
+        ///      "EmployeeName":"Test",
+        ///      
+        ///      "Designation":"Junior Engineer",
+        ///      
+        ///      "Pincode":"654321",
+        ///      
+        ///      "ManagerID":"4321",
+        ///      
+        ///      "Salary":"15000",
+        ///      
+        ///      "DepartmentName":"BackEnd Developer"
+        ///      
+        ///      "degree":"B.B.A",
+        ///      
+        ///      "percentage":"68"
+        ///      
+        ///     } 
+        ///     
+        /// </remarks>
+        /// <param name="employee"></param>
+        /// <returns>returns affected rows and addition Informations</returns>
+        [HttpPut()]
+        public async Task<BaseResponse> UpdatEemployee(UpdateEmployee employee)
+        {
+            var result = await _mediator.Send(employee);
+            return result;
+        }
+
+        /// <summary>
+        ///  Deletes Employee Details 
+        /// </summary>
+        /// <remarks> 
+        /// {
+        /// 
+        ///     "EmployeeID":"1"
+        /// 
+        /// }
+        /// </remarks>
+        /// <param name="id"></param>
+        /// <returns>returns affected rows and addition Informations</returns>
+        [HttpDelete("{id}")]
+        public async Task<BaseResponse> DeleteEmployee(int id)
+        {
+            var result = await _mediator.Send(new DeleteEmployee() { EmployeeID = id });
+            return result;
+        }
+        #endregion
+
+        #region Queries
         /// <summary>
         /// Fetch all Employee details
         /// </summary>
@@ -43,46 +122,30 @@ namespace Employee.Controllers
         [HttpGet]
         public async Task<List<EmployeeManagement>> GetallEmployees()
         {
-
             var result = await _mediator.Send(new GetEmployee());
             return result;
         }
         /// <summary>
-        ///  Fetch One Employee details using Employee Id
+        ///  Fetch Employee details using Employee Id
         /// </summary>
+        /// <remarks>
+        /// {
+        /// 
+        ///     "EmployeeID":"1"
+        ///     
+        /// }
+        /// </remarks>
         /// <param name="Id"></param>
-        /// <returns>One Employee details</returns>
+        /// <returns>Employee Info</returns>
 
         [HttpGet("{Id}")]
         public async Task<List<EmployeeManagement>> GetEmployeebyid(int Id)
         {
-
             var result = await _mediator.Send(new GetEmployeeByID() { EmployeeID = Id });
             return result;
         }
-        /// <summary>
-        ///  Update the Employee details in Database
-        /// </summary>
-        /// <param name="employee"></param>
-        /// <returns>It returns How many affected from Database and addition Informations</returns>
-        [HttpPut()]
-        public async Task<BaseResponse> UpdatEemployee(UpdateEmployee employee)
-        {
+        #endregion
 
-            var result= await _mediator.Send(employee);
-            return result;
-        }
-        /// <summary>
-        ///  Delete the Employee Details From Database
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>It returns How many affected from Database and addition Informations</returns>
-        [HttpDelete("{id}")]
-        public async Task<BaseResponse> DeleteEmployee(int id)
-        {
 
-            var result=await _mediator.Send(new DeleteEmployee() { EmployeeID = id });
-            return result;
-        }
     }
 }

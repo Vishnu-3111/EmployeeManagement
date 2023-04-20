@@ -19,6 +19,14 @@
             }
 
         }
+        public class NoDataFound : Exception
+        {
+            public NoDataFound() : base(message: "No Datas Found")
+            {
+
+            }
+
+        }
 
 
 

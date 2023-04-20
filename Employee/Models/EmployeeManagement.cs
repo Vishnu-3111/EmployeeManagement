@@ -3,7 +3,7 @@
 namespace Employee.Model
 {
     /// <summary>
-    /// Employee Management Class
+    /// Employee Management 
     /// </summary>
     public class EmployeeManagement
     {

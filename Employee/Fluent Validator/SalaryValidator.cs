@@ -5,7 +5,7 @@ namespace Employee.Fluent_Validator
 {
     public class SalaryValidator : PropertyValidator
     {
-        public SalaryValidator() : base("Enter only Numeric Values")
+        public SalaryValidator() : base("Invalid Salary")
         {
 
         }

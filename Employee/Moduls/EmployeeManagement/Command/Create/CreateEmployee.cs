@@ -5,7 +5,7 @@ using static Employee.Moduls.EmployeeManagement.Exeception_Handlings.InvalidIDEx
 
 namespace Employee.Moduls.EmployeeManagement.Command.Create
 {/// <summary>
-/// This Class used Create Or Add new employee
+/// used Create Or Add new employee
 /// </summary>
     public class CreateEmployee : IRequest<BaseResponse>
     {
@@ -18,63 +18,45 @@ namespace Employee.Moduls.EmployeeManagement.Command.Create
         public string degree { get; set; }
         public int percentage { get; set; }
     }
-   
-   
-   
+
+
+
     public class CreateEmployeeHandler : IRequestHandler<CreateEmployee, BaseResponse>
     {
         /// <summary>
         /// Dependency Injection of EmployeeDBcontext Class
         /// </summary>
-        
+
         private readonly EmpDbContext _dbContext;
         public CreateEmployeeHandler(EmpDbContext dbContext)
         {
             _dbContext = dbContext;
-          
+
         }
         //This Handler Handles the Create new Employee details
 
-        public Task<BaseResponse> Handle(CreateEmployee request, CancellationToken cancellationToken)
+        public async Task<BaseResponse> Handle(CreateEmployee request, CancellationToken cancellationToken)
         {
-                BaseResponse response = new BaseResponse();
-            //This Try block Throws any Error during create operations
-            try
-            {
-                var EmployeeDetails = new Model.EmployeeManagement();
-                EmployeeDetails.EmployeeName = request.EmployeeName;
-                EmployeeDetails.Pincode = request.Pincode;
-                EmployeeDetails.DepartmentName = request.DepartmentName;
-                EmployeeDetails.Salary = request.Salary;
-                EmployeeDetails.Designation = request.Designation;
-                EmployeeDetails.ManagerID = request.ManagerID;
-                EmployeeDetails.degree= request.degree;
-                EmployeeDetails.percentage= request.percentage;
+            BaseResponse response = new BaseResponse();
 
-                //if(request.EducationalQualification.Count > 0)
-                //{
-                //    foreach(var item in request.EducationalQualification)
-                //    {
-                //       List< Educationalqualification >eq = new List<Educationalqualification>();
-                //        eq.Add(item);
-                //        EmployeeDetails.EducationalQualifications=eq;
-                //    }
-                //}
-                _dbContext.EmployeeManagement.Add(EmployeeDetails);
-                               
-                response.ResponseValue =  _dbContext.SaveChanges();
-                response.Information = "Employee Details Created";
-                if (response.ResponseValue == 0)
-                {
-                    throw new BadRequest();
-                }
-                return Task.FromResult(response);
-            }
-            catch(Exception ex)
+            var EmployeeDetails = new Model.EmployeeManagement();
+            EmployeeDetails.EmployeeName = request.EmployeeName;
+            EmployeeDetails.Pincode = request.Pincode;
+            EmployeeDetails.DepartmentName = request.DepartmentName;
+            EmployeeDetails.Salary = request.Salary;
+            EmployeeDetails.Designation = request.Designation;
+            EmployeeDetails.ManagerID = request.ManagerID;
+            EmployeeDetails.degree = request.degree;
+            EmployeeDetails.percentage = request.percentage;
+            _dbContext.EmployeeManagement.Add(EmployeeDetails);
+            response.ResponseValue = await _dbContext.SaveChangesAsync();
+            response.Information = "Employee Details Created";
+            if (response.ResponseValue == 0)
             {
-                //throw ;
+                throw new BadRequest();
             }
-            return Task.FromResult(response);
+            return response;
+
         }
     }
 }

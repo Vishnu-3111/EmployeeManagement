@@ -5,32 +5,20 @@ using FluentValidation;
 namespace Employee.Moduls.EmployeeManagement.Command.Create
 {
     public class CreateEmployeeValidator : AbstractValidator<CreateEmployee>
-    {/// <summary>
-    /// This class used to validating the user entered details are in correct format
-    /// in createemployee class
-    /// </summary>
+    {
+        // This class used to validating the user entered details are in correct format in createEmployee class
+
+
         public CreateEmployeeValidator()
         {
-            RuleFor(model => model.EmployeeName).NotNull().NotEmpty().SetValidator(new NameValidation());
-            RuleFor(model => model.DepartmentName).NotNull().NotEmpty().MaximumLength(15).SetValidator(new NameValidation());
-            RuleFor(model => model.Pincode).NotEmpty().SetValidator(new PincodeValidators());
-            RuleFor(model => model.Designation).NotEmpty().SetValidator(new DesignationValidator());
+            RuleFor(model => model.EmployeeName).NotNull().NotEmpty().SetValidator(new NameValidator());
+            RuleFor(model => model.DepartmentName).NotNull().NotEmpty().MaximumLength(15).SetValidator(new NameValidator());
+            RuleFor(model => model.Pincode).NotEmpty().SetValidator(new PincodeValidator());
+            RuleFor(model => model.Designation).NotEmpty().SetValidator(new DesignationValidator()).When(x=>x.Designation!=null);
             RuleFor(model => model.ManagerID).SetValidator(new ManagerValidator()).NotEmpty();
-            RuleFor(model => model.degree).NotEmpty().SetValidator(new DegreeValidator());
+            RuleFor(model => model.degree).NotEmpty().SetValidator(new DegreeValidator()).When(x => x.degree != null);
             RuleFor(model => model.percentage).NotEmpty().InclusiveBetween(0,100);
 
-
-            /* RuleForEach(x => x.EducationalQualification).ChildRules(child =>
-             {
-                 child.RuleFor(x => x.degree).NotEmpty().NotNull().SetValidator(new DegreeValidator());
-             }
-            );
-
-             RuleForEach(x => x.EducationalQualification).ChildRules(child =>
-             {
-                 child.RuleFor(x => x.percentage).NotEmpty().NotNull().InclusiveBetween(0, 100);
-             }
-             );*/
         }
     }
 }

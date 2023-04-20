@@ -4,26 +4,24 @@ namespace Employee.Fluent_Validator
 {
     public class DesignationValidator:PropertyValidator
     {
-        public DesignationValidator() :base("Enter Valid Designation")
+        public DesignationValidator() :base("Invalid Designation")
         {
            
 
         }
-        /// <summary>
-        /// Ued to Validate User to enter a Valid Designation
-        /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
+     
+        // Used to Validate Designation
+        
 
         protected override bool IsValid(PropertyValidatorContext context)
         {
             List<string> Designationdetails = new List<string>();
             Designationdetails.Add("Project Manager");
-            Designationdetails.Add("TeamLeader");
+            Designationdetails.Add("Team Leader");
             Designationdetails.Add("Junior Engineer");
-            Designationdetails.Add("Senior");
-            
-         
+            Designationdetails.Add("Senior Engineer");
+            Designationdetails.Add("C.E.O");
+
             bool results=false;
             for(int i = 0; i < Designationdetails.Count; i++)
             {
