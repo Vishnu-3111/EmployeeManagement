@@ -9,11 +9,11 @@ namespace Employee.Common.Behaviours
     public class GlobalErrorHandling
     {
         private readonly RequestDelegate _requestDelegate;
-        private readonly IloggerError _logger;
-        public GlobalErrorHandling(RequestDelegate requestDelegate,IloggerError logger)
+        
+        public GlobalErrorHandling(RequestDelegate requestDelegate)
         {
             _requestDelegate = requestDelegate;
-            _logger = logger;
+           
         }
         public async Task Invoke(HttpContext context)
         {
@@ -23,7 +23,7 @@ namespace Employee.Common.Behaviours
             }
             catch (Exception ex)
             {
-                _logger.Error("SomeThing Went Worng {ex}:");
+                
                 await HandleExceptionAsync(context, ex);
             }
 

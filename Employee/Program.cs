@@ -1,6 +1,5 @@
 
 using Employee.Common.Behaviours;
-using Employee.LoggerExtention;
 using Employee.Model;
 using Employee.Swagger_Documentation;
 using FluentValidation;
@@ -9,37 +8,36 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Reflection;
-using NLog;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
 var logger = new LoggerConfiguration().ReadFrom.Configuration(builder.Configuration).Enrich.FromLogContext().CreateLogger();
-builder.Logging.ClearProviders();
-builder.Logging.AddSerilog(logger);
 // Add services to the container.
 builder.Services.AddControllers();
-//.AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
+builder.Logging.AddSerilog(logger);
+builder.Logging.ClearProviders();
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c => {
+builder.Services.AddSwaggerGen(c =>
+{
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     c.IncludeXmlComments(xmlPath);
 });
-builder.Services.AddApiVersioningConfigured();//builder.Services.AddScoped<IDataccess, Dataccess>();
-//builder.Services.AddMediatR(typeof(Dataccess).Assembly);
+builder.Services.AddApiVersioningConfigured();
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddDbContext<EmpDbContext>
     (options => options.UseSqlServer(builder.Configuration.GetConnectionString("Constring")));
 
-//builder.Services.AddValidatorsFromAssembly(typeof(Dataccess).Assembly);
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-
 builder.Services.AddSingleton(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-
-builder.Services.AddSingleton<IloggerError, LoggerError>();
 var app = builder.Build();
-
+app.Run();
+app.MapControllers();
+app.UseHttpsRedirection();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -54,11 +52,8 @@ if (app.Environment.IsDevelopment())
         }
     });
 }
- //app.UseExceptionHandler("");
-app.UseHttpsRedirection();
-//app.UseStatusCodePages();
+
 app.UseAuthorization();
 
-app.MapControllers();
 app.AddGlobalErrorHandler();
-app.Run();
+

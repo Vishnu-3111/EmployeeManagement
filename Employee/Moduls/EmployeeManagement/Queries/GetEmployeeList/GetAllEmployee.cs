@@ -8,10 +8,10 @@ namespace Employee.Moduls.EmployeeManagement.Quers.GetEmployeeList
     /// <summary>
     /// Get all records from the Employee Management Table
     /// </summary>
-    public class GetEmployee : IRequest<List<Model.EmployeeManagement>>
+    public class GetAllEmployee : IRequest<List<Model.EmployeeManagement>>
     {
     }
-    public class GetEmployeeHandlers : IRequestHandler<GetEmployee, List<Model.EmployeeManagement>>
+    public class GetEmployeeHandlers : IRequestHandler<GetAllEmployee, List<Model.EmployeeManagement>>
     {
         private readonly EmpDbContext _dbContext;
         public GetEmployeeHandlers(EmpDbContext dbContext)
@@ -19,12 +19,10 @@ namespace Employee.Moduls.EmployeeManagement.Quers.GetEmployeeList
             _dbContext = dbContext;
         }
 
-        // This handler used to Fetch all records from the Database
+        //  used to Fetch all records from the Database
 
-        public Task<List<Model.EmployeeManagement>> Handle(GetEmployee request, CancellationToken cancellationToken)
+        public Task<List<Model.EmployeeManagement>> Handle(GetAllEmployee request, CancellationToken cancellationToken)
         {
-
-
             var Employeelist = _dbContext.EmployeeManagement.ToListAsync();
 
 
@@ -36,8 +34,6 @@ namespace Employee.Moduls.EmployeeManagement.Quers.GetEmployeeList
             {
                 throw new NoDataFound();
             }
-
-
         }
     }
 }

@@ -59,7 +59,7 @@ namespace EmployeeManagementTesting
         [Fact]
         public void FailsOnDepartmentNameMaximumLength()
         {
-            var request = new CreateEmployee() { EmployeeName = "nr", Designation = "Senior", percentage = 98, Pincode = 654321, ManagerID = 4321, degree = "B.E", DepartmentName = "ndujhuytrmnjuytrewd", Salary = 6543 };
+            var request = new CreateEmployee() { EmployeeName = "nr", Designation = "Senior", percentage = 98, Pincode = 654321, ManagerID = 4321, degree = "B.E", DepartmentName = "ndujhuytrsdfrtujmnjuytrewd", Salary = 6543 };
             validator.ShouldHaveValidationErrorFor(x => x.DepartmentName, request);
         }
         [Fact]

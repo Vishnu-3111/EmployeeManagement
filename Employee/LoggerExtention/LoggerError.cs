@@ -4,9 +4,9 @@ using System.Net;
 
 namespace Employee.LoggerExtention
 {
-    public  class LoggerError : IloggerError
+    public class LoggerError : IloggerError
     {
-        private static NLog.ILogger _logger =LogManager.GetCurrentClassLogger();
+        private static NLog.ILogger _logger = LogManager.GetCurrentClassLogger();
         public void Error(string message)
         {
             _logger.Error(message);
@@ -14,7 +14,7 @@ namespace Employee.LoggerExtention
 
         public void LogWarning(string message)
         {
-           _logger.Warn(message);
+            _logger.Warn(message);
         }
     }
 }

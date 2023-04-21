@@ -23,9 +23,6 @@ namespace Employee.Moduls.EmployeeManagement.Command.Create
 
     public class CreateEmployeeHandler : IRequestHandler<CreateEmployee, BaseResponse>
     {
-        /// <summary>
-        /// Dependency Injection of EmployeeDBcontext Class
-        /// </summary>
 
         private readonly EmpDbContext _dbContext;
         public CreateEmployeeHandler(EmpDbContext dbContext)
@@ -33,12 +30,12 @@ namespace Employee.Moduls.EmployeeManagement.Command.Create
             _dbContext = dbContext;
 
         }
-        //This Handler Handles the Create new Employee details
+        // Handles the Create new Employee details
 
         public async Task<BaseResponse> Handle(CreateEmployee request, CancellationToken cancellationToken)
         {
             BaseResponse response = new BaseResponse();
-
+          
             var EmployeeDetails = new Model.EmployeeManagement();
             EmployeeDetails.EmployeeName = request.EmployeeName;
             EmployeeDetails.Pincode = request.Pincode;
@@ -49,9 +46,10 @@ namespace Employee.Moduls.EmployeeManagement.Command.Create
             EmployeeDetails.degree = request.degree;
             EmployeeDetails.percentage = request.percentage;
             _dbContext.EmployeeManagement.Add(EmployeeDetails);
-            response.ResponseValue = await _dbContext.SaveChangesAsync();
+            int result = await _dbContext.SaveChangesAsync();
+            response.ResponseValue = EmployeeDetails.EmployeeId;
             response.Information = "Employee Details Created";
-            if (response.ResponseValue == 0)
+            if (result == 0)
             {
                 throw new BadRequest();
             }

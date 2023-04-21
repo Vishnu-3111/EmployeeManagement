@@ -33,7 +33,6 @@ namespace Employee.Moduls.EmployeeManagement.Quers.GetEmployeeById
                 throw new InvalidIDExceptions();
             }
 
-
         }
 
     }

@@ -1,6 +1,5 @@
 ﻿using Employee.Model;
 using MediatR;
-using Serilog;
 using static Employee.Moduls.EmployeeManagement.Exeception_Handlings.InvalidIDException;
 
 namespace Employee.Moduls.EmployeeManagement.Command.Update
@@ -24,53 +23,45 @@ namespace Employee.Moduls.EmployeeManagement.Command.Update
     }
     public class UpdateEmployeeHandlers : IRequestHandler<UpdateEmployee, BaseResponse>
     {
-      
+
         public readonly EmpDbContext dbContext;
         public UpdateEmployeeHandlers(EmpDbContext _dbContext)
         {
-
-
             dbContext = _dbContext;
         }
         /// <summary>
         /// Handler method performs for Update operation by getting values from Controller 
         /// and return responce to Controller
         /// </summary>
-        
-       
+
+
         public async Task<BaseResponse> Handle(UpdateEmployee request, CancellationToken cancellationToken)
         {
-
             BaseResponse response = new BaseResponse();
-            
-            
-                
-                var entity = dbContext.EmployeeManagement.Where(x => x.EmployeeId == request.EmployeeID).FirstOrDefault();
 
-                if (entity != null)
-                {
+            var entity = dbContext.EmployeeManagement.Where(x => x.EmployeeId == request.EmployeeID).FirstOrDefault();
 
+            if (entity != null)
+            {
+                entity.EmployeeId = request.EmployeeID;
+                entity.EmployeeName = request.EmployeeName;
+                entity.Pincode = request.Pincode;
+                entity.DepartmentName = request.DepartmentName;
+                entity.Salary = request.Salary;
+                entity.Designation = request.Designation;
+                entity.ManagerID = request.ManagerID;
+                entity.degree = request.degree;
+                entity.percentage = request.percentage;
+                dbContext.Update(entity);
+                response.ResponseValue = await dbContext.SaveChangesAsync();
+                response.Information = "Employee details Updated";
+                return response;
 
-                    entity.EmployeeId = request.EmployeeID;
-                    entity.EmployeeName = request.EmployeeName;
-                    entity.Pincode = request.Pincode;
-                    entity.DepartmentName = request.DepartmentName;
-                    entity.Salary = request.Salary;
-                    entity.Designation = request.Designation;
-                    entity.ManagerID = request.ManagerID;
-                    entity.degree = request.degree;
-                    entity.percentage = request.percentage;
-                    dbContext.Update(entity);
-                    response.ResponseValue = await dbContext.SaveChangesAsync();
-                    response.Information = "Employee details Updated";
-                    return response;
-
-                }
-                else
-                {
-                    throw new InvalidIDExceptions();
-                }
-
+            }
+            else
+            {
+                throw new InvalidIDExceptions();
+            }
 
         }
     }

@@ -1,5 +1,4 @@
-﻿using Employee.LoggerExtention;
-using Employee.Model;
+﻿using Employee.Model;
 using Employee.Moduls.Command.Delete;
 using Employee.Moduls.EmployeeManagement.Command.Create;
 using Employee.Moduls.EmployeeManagement.Command.Update;
@@ -14,20 +13,19 @@ namespace Employee.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
-
-
         private readonly IMediator _mediator;
-        private IloggerError _IloggerError;
-        public EmployeeController(IMediator mediator, IloggerError iloggerError)
+        public EmployeeController(IMediator mediator)
         {
             _mediator = mediator;
-            _IloggerError = iloggerError;
+           
         }
         #region Commands
         /// <summary>
         /// Used To Create A New Employee
         /// </summary>
         /// <remarks>
+        ///     Example Values
+        ///     -------------
         /// {
         /// 
         ///      "EmployeeName":"Test",
@@ -40,7 +38,7 @@ namespace Employee.Controllers
         ///      
         ///      "Salary":"15000",
         ///      
-        ///      "DepartmentName":"BackEnd Developer"
+        ///      "DepartmentName":"Developer"
         ///      
         ///      "degree":"B.B.A",
         ///      
@@ -51,6 +49,7 @@ namespace Employee.Controllers
         /// <param name="employee"></param>
         /// <returns>returns affected rows and addition Informations</returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<BaseResponse> CreateEmployee(CreateEmployee employee)
         {
             var result = await _mediator.Send(employee);
@@ -62,6 +61,8 @@ namespace Employee.Controllers
         /// </summary>
         /// <remarks> 
         /// 
+        ///   Example Values
+        ///   --------------
         /// {
         /// 
         ///      "EmployeeID":"1",
@@ -88,7 +89,8 @@ namespace Employee.Controllers
         /// <param name="employee"></param>
         /// <returns>returns affected rows and addition Informations</returns>
         [HttpPut()]
-        public async Task<BaseResponse> UpdatEemployee(UpdateEmployee employee)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<BaseResponse> UpdateEemployee(UpdateEmployee employee)
         {
             var result = await _mediator.Send(employee);
             return result;
@@ -98,15 +100,16 @@ namespace Employee.Controllers
         ///  Deletes Employee Details 
         /// </summary>
         /// <remarks> 
-        /// {
         /// 
-        ///     "EmployeeID":"1"
         /// 
-        /// }
+        ///     "id":"1"
+        /// 
+        /// 
         /// </remarks>
         /// <param name="id"></param>
         /// <returns>returns affected rows and addition Informations</returns>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<BaseResponse> DeleteEmployee(int id)
         {
             var result = await _mediator.Send(new DeleteEmployee() { EmployeeID = id });
@@ -120,25 +123,27 @@ namespace Employee.Controllers
         /// </summary>
         /// <returns> All Employee Details</returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<List<EmployeeManagement>> GetallEmployees()
         {
-            var result = await _mediator.Send(new GetEmployee());
+            var result = await _mediator.Send(new GetAllEmployee());
             return result;
         }
         /// <summary>
         ///  Fetch Employee details using Employee Id
         /// </summary>
         /// <remarks>
-        /// {
         /// 
-        ///     "EmployeeID":"1"
+        /// 
+        ///     "Id":"1"
         ///     
-        /// }
+        /// 
         /// </remarks>
         /// <param name="Id"></param>
         /// <returns>Employee Info</returns>
 
         [HttpGet("{Id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<List<EmployeeManagement>> GetEmployeebyid(int Id)
         {
             var result = await _mediator.Send(new GetEmployeeByID() { EmployeeID = Id });

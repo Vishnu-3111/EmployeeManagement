@@ -25,7 +25,7 @@ namespace EmployeeManagementTesting.Unit_Test.EmployeeManagement.Command.Delete
             validator.ShouldHaveValidationErrorFor(x => x.EmployeeID, request);
         }
         [Fact]
-        public void EmployeeIDPassValidation()
+        public void EmployeeIDPassValidator()
         {
             var request = new DeleteEmployee() { EmployeeID = 3 };
             validator.ShouldNotHaveValidationErrorFor(x => x.EmployeeID, request);

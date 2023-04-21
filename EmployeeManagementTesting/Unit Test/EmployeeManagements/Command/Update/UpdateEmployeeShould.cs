@@ -20,17 +20,17 @@ namespace EmployeeManagementTesting.Unit_Test.EmployeeManagements.Command.Update
             dbContextMock.CreateDbSetMock(x => x.EmployeeManagement, Employeetable);
         }
         [Fact]
-        public void passvalidation()
+        public void passvalidator()
         {
             var request = new UpdateEmployee() { EmployeeID = 1, EmployeeName = "vishn", Designation = "Senior", percentage = 98, Pincode = 654321, ManagerID = 4321, degree = "B.E", DepartmentName = "gf", Salary = 6543 };
             dbContextMock.Setup(c => c.SaveChangesAsync(CancellationToken.None)).Returns(() => Task.Run(() => { return 1; })).Verifiable();
             var response = handler.Handle(request, CancellationToken.None);
             Assert.True(response.Result.ResponseValue != 0);
-          
+
         }
 
         [Fact]
-        public void ExceptionValidation()
+        public void ExceptionValidator()
         {
             var request = new UpdateEmployee() { };
             var response = Record.ExceptionAsync(async () => await handler.Handle(request, CancellationToken.None));

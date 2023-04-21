@@ -20,7 +20,7 @@ namespace EmployeeManagementTesting.Unit_Test.EmployeeManagements.Query
         [Fact]
         public void passvalidation()
         {
-            var request = new GetEmployee();
+            var request = new GetAllEmployee();
             var response = handler.Handle(request, CancellationToken.None);
             Assert.True(response.Result.Count > 0);
         }

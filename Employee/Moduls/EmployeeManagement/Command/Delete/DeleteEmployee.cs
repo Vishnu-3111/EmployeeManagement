@@ -1,12 +1,7 @@
 ﻿using Employee.Model;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
-using System.Net;
-using System;
 using static Employee.Moduls.EmployeeManagement.Exeception_Handlings.InvalidIDException;
-using LoggerExtensions = Serilog.LoggerExtensions;
-using Employee.LoggerExtention;
 
 namespace Employee.Moduls.Command.Delete
 {
@@ -23,8 +18,6 @@ namespace Employee.Moduls.Command.Delete
         public DeleteEmployeeHandlers(EmpDbContext dbContext)
         {
             _dbContext = dbContext;
-
-
         }
         //Used to Delete the Employee details 
         public async Task<BaseResponse> Handle(DeleteEmployee command, CancellationToken cancellationToken)

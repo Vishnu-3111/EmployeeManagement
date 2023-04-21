@@ -25,7 +25,7 @@ namespace EmployeeManagementTesting.Unit_Test.EmployeeManagements.Command.Delete
             dbContextMock.CreateDbSetMock(x => x.EmployeeManagement, Employeetable);
         }
         [Fact]
-        public void passvalidation()
+        public void passvalidator()
         {
             var request = new DeleteEmployee() { EmployeeID = 1 };
             dbContextMock.Setup(c => c.SaveChangesAsync(CancellationToken.None)).Returns(() => Task.Run(() => { return 1; })).Verifiable();
@@ -35,14 +35,11 @@ namespace EmployeeManagementTesting.Unit_Test.EmployeeManagements.Command.Delete
         }
 
         [Fact]
-        public void ExceptionValidation()
+        public void ExceptionValidator()
         {
             var request = new DeleteEmployee() { };
             var response = Record.ExceptionAsync(async () => await handler.Handle(request, CancellationToken.None));
             Assert.IsType<InvalidIDExceptions>(response.Result);
         }
-
-
-
     }
 }

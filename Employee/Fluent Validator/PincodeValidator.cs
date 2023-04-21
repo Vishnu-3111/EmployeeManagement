@@ -21,7 +21,6 @@ namespace Employee.Fluent_Validator
                 return true;
             }
 
-
         }
     }
 }

@@ -13,11 +13,5 @@ namespace Employee.Model
 
         public virtual DbSet<EmployeeManagement> EmployeeManagement { get; set; }
 
-
-
-
-        // public DbSet<EmployeeManagement> EmployeeManagement { get; set; }
-        // public DbSet<Educationalqualification> educationalqualification { get; set; }
-
     }
 }

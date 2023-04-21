@@ -2,16 +2,16 @@
 
 namespace Employee.Fluent_Validator
 {
-    public class DegreeValidator:PropertyValidator
+    public class DegreeValidator : PropertyValidator
     {
-        public DegreeValidator():base("Invalid Degree")
+        public DegreeValidator() : base("Invalid Degree")
         {
 
         }
-       
+
         //used to check degree Of employees 
         protected override bool IsValid(PropertyValidatorContext context)
-        { 
+        {
             List<string> DegreeList = new List<string>();
             DegreeList.Add("B.E");
             DegreeList.Add("B.Sc");
@@ -32,14 +32,12 @@ namespace Employee.Fluent_Validator
                     results = true;
                     break;
                 }
-                
+
             }
             return results;
 
 
         }
-
-
 
     }
 }
