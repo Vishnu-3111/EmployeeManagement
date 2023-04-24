@@ -35,7 +35,7 @@ builder.Services.AddDbContext<EmpDbContext>
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 builder.Services.AddSingleton(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 var app = builder.Build();
-app.Run();
+
 app.MapControllers();
 app.UseHttpsRedirection();
 // Configure the HTTP request pipeline.
@@ -56,4 +56,5 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.AddGlobalErrorHandler();
+app.Run();
 

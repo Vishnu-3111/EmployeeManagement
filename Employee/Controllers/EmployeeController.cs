@@ -88,7 +88,7 @@ namespace Employee.Controllers
         /// </remarks>
         /// <param name="employee"></param>
         /// <returns>returns affected rows and addition Informations</returns>
-        [HttpPut()]
+        [HttpPut]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<BaseResponse> UpdateEemployee(UpdateEmployee employee)
         {
@@ -142,7 +142,8 @@ namespace Employee.Controllers
         /// <param name="Id"></param>
         /// <returns>Employee Info</returns>
 
-        [HttpGet("{Id}")]
+        [HttpGet]
+        [Route("GetEmployeebyId")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<List<EmployeeManagement>> GetEmployeebyid(int Id)
         {
