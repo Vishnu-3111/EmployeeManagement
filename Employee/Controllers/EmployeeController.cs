@@ -6,6 +6,7 @@ using Employee.Moduls.EmployeeManagement.Quers.GetEmployeeById;
 using Employee.Moduls.EmployeeManagement.Quers.GetEmployeeList;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace Employee.Controllers
 {
@@ -126,8 +127,17 @@ namespace Employee.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<List<EmployeeManagement>> GetallEmployees()
         {
-            var result = await _mediator.Send(new GetAllEmployee());
-            return result;
+             HttpClient client = new HttpClient();
+            IEnumerable<string> headerValues=client.DefaultRequestHeaders.GetValues("vishnu");
+            if (headerValues.Contains("123") == true)
+            {
+                var result = await _mediator.Send(new GetAllEmployee());
+               return result;
+            }
+            else
+            {
+                throw new Exception() ;
+            }
         }
         /// <summary>
         ///  Fetch Employee details using Employee Id
