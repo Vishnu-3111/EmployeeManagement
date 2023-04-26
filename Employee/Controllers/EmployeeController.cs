@@ -7,11 +7,13 @@ using Employee.Moduls.EmployeeManagement.Quers.GetEmployeeList;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Employee.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [SwaggerTag]
     public class EmployeeController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -50,11 +52,20 @@ namespace Employee.Controllers
         /// <param name="employee"></param>
         /// <returns>returns affected rows and addition Informations</returns>
         [HttpPost]
+        [Route("CreateEmployee")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<BaseResponse> CreateEmployee(CreateEmployee employee)
         {
-            var result = await _mediator.Send(employee);
-            return result;
+            var customHeader = Request.Headers["Custom-Header"];
+            if (!string.IsNullOrEmpty(customHeader) && customHeader == "Create-Value")
+            {
+                var result = await _mediator.Send(employee);
+                return result;
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
 
         /// <summary>
@@ -90,11 +101,17 @@ namespace Employee.Controllers
         /// <param name="employee"></param>
         /// <returns>returns affected rows and addition Informations</returns>
         [HttpPut]
+        [Route("UpdateEmployee")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<BaseResponse> UpdateEemployee(UpdateEmployee employee)
         {
-            var result = await _mediator.Send(employee);
-            return result;
+            var customHeader = Request.Headers["Custom-Header"];
+            if (!string.IsNullOrEmpty(customHeader) && customHeader == "Update-Value")
+            {
+                var result = await _mediator.Send(employee);
+                return result;
+            }
+            else { throw new Exception(); }
         }
 
         /// <summary>
@@ -109,12 +126,18 @@ namespace Employee.Controllers
         /// </remarks>
         /// <param name="id"></param>
         /// <returns>returns affected rows and addition Informations</returns>
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("DeleteEmployee")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<BaseResponse> DeleteEmployee(int id)
         {
-            var result = await _mediator.Send(new DeleteEmployee() { EmployeeID = id });
-            return result;
+            var customHeader = Request.Headers["Custom-Header"];
+            if (!string.IsNullOrEmpty(customHeader) && customHeader == "Delete-Value")
+            {
+                var result = await _mediator.Send(new DeleteEmployee() { EmployeeID = id });
+                return result;
+            }
+            else { throw new Exception() ; }
         }
         #endregion
 
@@ -127,9 +150,9 @@ namespace Employee.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<List<EmployeeManagement>> GetallEmployees()
         {
-             HttpClient client = new HttpClient();
-            IEnumerable<string> headerValues=client.DefaultRequestHeaders.GetValues("vishnu");
-            if (headerValues.Contains("123") == true)
+
+           var customHeader= Request.Headers["Custom-Header"];
+            if (!string.IsNullOrEmpty(customHeader)&& customHeader== "Get-Value")
             {
                 var result = await _mediator.Send(new GetAllEmployee());
                return result;
@@ -157,8 +180,13 @@ namespace Employee.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<List<EmployeeManagement>> GetEmployeebyid(int Id)
         {
-            var result = await _mediator.Send(new GetEmployeeByID() { EmployeeID = Id });
-            return result;
+            var customHeader = Request.Headers["Custom-Header"];
+            if (!string.IsNullOrEmpty(customHeader) && customHeader == "GetById-Value")
+            {
+                var result = await _mediator.Send(new GetEmployeeByID() { EmployeeID = Id });
+                return result;
+            }
+            else { throw new Exception() ; }
         }
         #endregion
 
