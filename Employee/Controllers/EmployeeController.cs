@@ -6,7 +6,6 @@ using Employee.Moduls.EmployeeManagement.Quers.GetEmployeeById;
 using Employee.Moduls.EmployeeManagement.Quers.GetEmployeeList;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Employee.Controllers
